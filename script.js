@@ -1,16 +1,30 @@
-// server.js
-import fetch from 'node-fetch'; // ✅ Only works in modern bundlers like Vite, Webpack, etc.
-const express = require('express');
-const app = express();
+async function getSongs() {
+ const getM = await fetch("http://127.0.0.1:3000/assets/Music/")
+ let text = await getM.text()
+  console.log(text);
 
-app.get('/deezer', async (req, res) => {
-  const query = req.query.q;
-  const response = await fetch(`https://api.deezer.com/search?q=${query}`);
-  const data = await response.json();
-  res.json(data);
-});
 
-app.listen(3001, () => console.log('Proxy running on port 3001'));
-fetch('https://api.deezer.com/search?q=arijit%20singh')
-  .then(res => res.json())
-  .then(data => console.log(data));
+ const div = document.createElement('div')
+ div.innerHTML = text
+ const as = div.getElementsByTagName('a')
+  console.log(as)
+
+  let songs = []
+ for(let index = 0; index < as.length; index++){
+    const element = as[index];
+    if (element.href.endsWith(".mp3"))
+      songs.push(element.href)
+
+ }
+       console.log(songs)
+       return songs
+ 
+}
+
+async function callMusic() {
+  const songs = await getSongs()
+  
+  console.log(songs)
+}
+
+callMusic()

@@ -116,11 +116,13 @@ main {
     flex: 1;
     background: linear-gradient(to bottom, var(--bodybg1), var(--bodybg) 40%);
     overflow-y: auto;
-    padding: 10px 25px;
+    padding: 0px 25px;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
-    margin: 1px;
+    margin-bottom: 100px;
+    /* padding-bottom: 250px; */
+    /* border-radius: 10px; */
+    /* margin: 1px; */
 }
 
 
@@ -129,10 +131,13 @@ main {
     justify-content: space-between;
     align-items: center;
     position: sticky;
-    top: 0;
-    padding: 16px 0;
+    margin-left: -25px;
+    margin-right: -25px;
+    top: 0px;
+    margin-bottom: 10px;
+    padding: 16px 15px;
     z-index: 10;
-    /
+    background-color: rgb(0, 35, 0, 0.4);
 }
 
 .left-header {
@@ -227,7 +232,7 @@ main {
 }
 
 .play-button {
-    background-color: var(--primary-color);
+    background-color: var(--bg);
     color: black;
     border: none;
     padding: 12px 24px;
@@ -316,6 +321,45 @@ main {
     overflow: hidden;
 }
 
+.content-bottom{
+    width: 100%;
+    height: 70px;
+    bottom: 0;
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-left: -20px;
+    position: fixed;
+    background: linear-gradient(to right, var(--bodybg1),var(--bodybg));
+}
+
+.media-control{
+    width: 200px;
+    height: 80%;
+    margin-left: -255px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow: hidden;
+    
+}
+
+.size span{
+    font-size: 40px;
+    color: black;
+    background-color: var(--bg);
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.size span:hover{
+    background-color: greenyellow;
+    transform: scale(1.1);
+}
+
 @media (max-width: 1024px) {
     .items-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -341,7 +385,9 @@ main {
     .section2 {
         margin: 0;
         border-radius: 0;
-        padding: 16px;
+        margin-top: -16px;
+        padding: 16px 20px;
+        margin-bottom: 50px;
     }
 
     .discover {
@@ -357,6 +403,10 @@ main {
         flex: auto;
         order: -1;
         /* Puts image above text on mobile */
+    }
+
+    .media-control{
+        margin-left: 0;
     }
 }
 

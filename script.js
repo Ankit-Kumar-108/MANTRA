@@ -34,6 +34,21 @@ async function setupMusic() {
   const start = document.getElementById('play-pause')
   const next = document.getElementById('next')
   const Before = document.getElementById('previous')
+  const seeker = document.getElementById('SeekBar')
+
+  myMusic.addEventListener('loadedmetadata',()=>{
+       seeker.max = myMusic.duration
+  })
+
+  myMusic.addEventListener('timeupdate',()=>{
+       seeker.value = myMusic.currentTime
+  })
+
+  seeker.addEventListener('input',()=>{
+       myMusic.currentTime = seeker.value
+  })
+
+
   start.addEventListener('click', () => {
     if (myMusic.paused) {
       myMusic.play()

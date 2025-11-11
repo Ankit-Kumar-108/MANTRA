@@ -119,7 +119,8 @@ main {
     padding: 0px 25px;
     display: flex;
     flex-direction: column;
-    padding-bottom: 100px;
+    padding-bottom: 1
+    x;
 }
 
 
@@ -321,6 +322,7 @@ main {
 .content-bottom{
     width: 100%;
     height: 70px;
+    margin-bottom: 5px;
     bottom: 0;
     display: flex;
     border-radius: 10px;
@@ -355,6 +357,19 @@ main {
 .size span:hover{
     background-color: greenyellow;
     transform: scale(1.1);
+}
+
+.seekbar{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: -3px;
+    width: 90%;
+}
+
+#SeekBar{
+    width: 100%;
+    height: 3px;
+    margin-left: -20px;
 }
 
 @media (max-width: 1024px) {

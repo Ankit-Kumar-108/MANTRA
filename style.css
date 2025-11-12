@@ -8,6 +8,7 @@
     --text-primary: #ffffff;
     --text-secondary: #b3b3b3;
     --sidebar-width: 265px;
+    --footer-height: 76px;
 }
 
 *,
@@ -117,10 +118,11 @@ main {
     background: linear-gradient(to bottom, var(--bodybg1), var(--bodybg) 40%);
     overflow-y: auto;
     padding: 0px 25px;
+    /* reserve space so fixed footer doesn't cover content */
+    /* UPDATED: Added more padding-bottom to account for taller footer */
+    padding-bottom: calc(var(--footer-height) + 60px); 
     display: flex;
     flex-direction: column;
-    padding-bottom: 1
-    x;
 }
 
 
@@ -320,29 +322,45 @@ main {
 }
 
 .content-bottom{
-    width: 100%;
-    height: 70px;
-    margin-bottom: 5px;
-    bottom: 0;
+    --h: var(--footer-height);
+    position: fixed;
+    bottom: 12px;
+    
+    left: var(--sidebar-width);
+    right: 0;
+    width: auto; 
+    margin: 0 25px;
+
+    height: auto;
+    min-height: 56px;
+    
     display: flex;
-    border-radius: 10px;
+    flex-direction: column; 
     align-items: center;
     justify-content: center;
-    margin-left: -20px;
-    position: fixed;
-    background: linear-gradient(to right, var(--bodybg1),var(--bodybg));
+    
+    padding: 8px 16px;
+    border-radius: 12px;
+   background: linear-gradient(135deg, #159f31, #004d03);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+    z-index: 999;
+
+    
+    transition: left 0.3s ease-in-out, margin 0.3s ease-in-out; 
 }
 
+
 .media-control{
-    width: 200px;
-    height: 80%;
-    margin-left: -255px;
+    width: min(520px, 100%); 
+    max-width: 520px;
+    height: 50px;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     overflow: hidden;
-    
+    margin-top: 4px;
 }
 
 .size span{
@@ -360,17 +378,91 @@ main {
 }
 
 .seekbar{
-    position: absolute;
-    bottom: 0;
-    margin-bottom: -3px;
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    max-width: 600px; 
+    margin-top: -7px;
+    /* padding-bottom: 15px; */
+    margin-bottom: 15px; 
+    z-index: 1000;
 }
 
-#SeekBar{
+#SeekBar {
     width: 100%;
     height: 3px;
-    margin-left: -20px;
+    /* margin-left: -20px; */
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,0.18);
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
 }
+
+/* Webkit track/thumb */
+input[type=range]::-webkit-slider-runnable-track{
+    height: 6px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 6px;
+}
+input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -6px; /* center the thumb */
+    background: transparent; /* transparent fill */
+    border: transparent; /* visible ring */
+    border-radius: 50%;
+    /* box-shadow: 0 2px 6px rgba(0,0,0,0.4); */
+}
+
+/* Firefox styles */
+input[type=range]::-moz-range-track{
+    height: 6px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 6px;
+}
+input[type=range]::-moz-range-progress{
+    height: 6px;
+    background: #fff; /* filled part */
+    border-radius: 6px;
+}
+input[type=range]::-moz-range-thumb{
+    width: 18px;
+    height: 18px;
+    background: transparent;
+    border: transparent;
+    border-radius: 50%;
+}
+
+/* IE/Edge (legacy) */
+input[type=range]::-ms-track{
+    height: 6px;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+input[type=range]::-ms-fill-lower{
+    background: #fff;
+    border-radius: 6px;
+}
+input[type=range]::-ms-fill-upper{
+    background: rgba(255,255,255,0.18);
+    border-radius: 6px;
+}
+input[type=range]::-ms-thumb{
+    width: 18px;
+    height: 18px;
+    background: transparent;
+    border: transparent;
+    border-radius: 50%;
+}
+
+
+
 
 @media (max-width: 1024px) {
     .items-grid {
@@ -399,7 +491,7 @@ main {
         border-radius: 0;
         margin-top: -16px;
         padding: 16px 20px;
-        padding-bottom: 100px;
+        padding-bottom: 120px; /* Increased padding for footer */
     }
 
     .discover {
@@ -417,8 +509,27 @@ main {
         /* Puts image above text on mobile */
     }
 
+    /* --- UPDATED STYLES for .content-bottom on mobile --- */
+    .content-bottom{
+        /* mobile: span almost full width (account for small safe padding) */
+        width: calc(100% - 32px); /* 16px padding left/right */
+        max-width: none;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 12px;
+        border-radius: 10px;
+        padding: 8px 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        
+        /* Reset properties from desktop */
+        margin: 0; 
+    }
+
     .media-control{
         margin-left: 0;
+        width: min(420px, 100%); /* Use 100% of parent */
+        max-width: 95%;
+        justify-content: center;
     }
 }
 
@@ -450,5 +561,23 @@ main {
         flex: auto;
         order: -1;
         /* Puts image above text on mobile */
+    }
+
+    /* smaller footer on very small screens */
+    .content-bottom{
+        width: calc(100% - 20px); /* 10px padding left/right */
+        left: 50%;
+        transform: translateX(-50%);
+        height: auto; /* Auto height */
+        padding: 6px 10px;
+    }
+
+    .media-control{
+        width: min(360px, 100%);
+        gap: 8px;
+    }
+
+    .size span{
+        font-size: 34px;
     }
 }

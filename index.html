@@ -214,7 +214,11 @@
                         </div>
                     </div>
                 </section>
+                <!-- UPDATED: Moved seekbar inside content-bottom -->
                 <section class="content-bottom">
+                    <div class="seekbar">
+                        <input type="range" name="SeekBar" id="SeekBar" min="0" value="0" max="100">
+                    </div>
                     <div class="media-control">
                         <div class="previous size">
                             <span class="material-symbols-outlined" id="previous">arrow_left</span>
@@ -226,14 +230,32 @@
                             <span class="material-symbols-outlined">arrow_right</span>
                         </div>
                     </div>
-                    <div class="seekbar">
-                        <input type="range" name="SeekBar" id="SeekBar" min="0" value="0" max="100">
-                    </div>
-                    <!-- for future thumbnail and duration bar -->
+                    <!-- for future thumbnail and duration bar111-->
                 </section>
+                
             </div>
         </div>
     </main>
+        <script>
+            (function(){
+                const seek = document.getElementById('SeekBar');
+                if(!seek) return;
+                function updateSeekBg(){
+                    const min = parseFloat(seek.min) || 0;
+                    const max = parseFloat(seek.max) || 1;
+                    const val = parseFloat(seek.value) || 0;
+                    const pct = Math.max(0, Math.min(100, (val - min) / (max - min) * 100));
+                    seek.style.background = `linear-gradient(90deg, #fff ${pct}%, rgba(255,255,255,0.18) ${pct}%)`;
+                }
+                seek.addEventListener('input', updateSeekBg, {passive:true});
+                // ensure correct initial appearance
+                if (document.readyState === 'loading') {
+                    window.addEventListener('DOMContentLoaded', updateSeekBg);
+                } else {
+                    updateSeekBg();
+                }
+            })();
+        </script>
 </body>
 <script type="module" src="script.js"></script>
 

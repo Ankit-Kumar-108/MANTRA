@@ -1,44 +1,47 @@
 async function getSongs() {
   const getM = await fetch("./assets/songs.json")
   let text = await getM.json()
-  console.log(text);
-
-
-  // const div = document.createElement('div')
-  // div.innerHTML = text.songs
-  const as = text.songs
-  // console.log(as)
-
-  let songs = []
-  for (let index = 0; index < as.length; index++) {
-    const element = as[index];
-    if (element.endsWith(".mp3"))
-      songs.push(`./assets/Music/${element}`)
-
-  }
-   console.log(songs)
-  return songs
+  let songs = text.songs
+  songs.forEach(song => {
+    console.log(song.file)
+    const element = song.file
+    if (element.endsWith(".mp3")){
+      song.file =`./assets/Music/${element}`
+    }
+    
+  });
+  // console.log(songs)
+return songs
 
 }
-
+// assets/Albums/Agar-Tum-Saath-Ho.jpg
 async function setupMusic() {
 
   let setMusicIndex = 0;
   const songs = await getSongs();
-  const myMusic = new Audio(songs[setMusicIndex]);
-  console.log(songs[setMusicIndex]);
+  const myMusic = new Audio(songs[setMusicIndex].file);
+  console.log(songs[setMusicIndex].file);
 
   const start = document.getElementById('play-pause');
   const next = document.getElementById('next');
   const Before = document.getElementById('previous');
   const seeker = document.getElementById('SeekBar');
+  // for discovery id dynamic
 
-  // 1. --- ADD THIS HELPER FUNCTION ---
-  // This function will update the gradient background for Chrome/Edge
+const album = document.getElementById('album')
+const alb = songs[setMusicIndex].image
+const imgg = document.createElement('img')
+console.log(alb)
+imgg.src = alb
+imgg.style.width = "100%"
+album.innerHTML = ""
+album.appendChild(imgg)
+
+
+// leave it its for seekbar  ---start--- 
   function updateSeekBg() {
     if (!seeker) return;
     const min = parseFloat(seeker.min) || 0;
-    // Use seeker.max, which we set in 'loadedmetadata'
     const max = parseFloat(seeker.max) || 1; 
     const val = parseFloat(seeker.value) || 0;
     
@@ -46,25 +49,24 @@ async function setupMusic() {
     
     seeker.style.background = `linear-gradient(90deg, #fff ${pct}%, rgba(255,255,255,0.18) ${pct}%)`;
   }
-  // --- END OF HELPER FUNCTION ---
-
+ 
 
   myMusic.addEventListener('loadedmetadata', () => {
     seeker.max = myMusic.duration;
-    updateSeekBg(); // 2. Call on load to set initial state
+    updateSeekBg(); 
   });
 
   myMusic.addEventListener('timeupdate', () => {
     seeker.value = myMusic.currentTime;
-    updateSeekBg(); // 3. Call when music updates the time
+    updateSeekBg();
   });
 
   seeker.addEventListener('input', () => {
     myMusic.currentTime = seeker.value;
-    updateSeekBg(); // 4. Call when user drags the slider
+    updateSeekBg();
   });
 
-
+// ----end----
   start.addEventListener('click', () => {
     if (myMusic.paused) {
       myMusic.play();
@@ -81,27 +83,33 @@ async function setupMusic() {
     console.log('next is pressed');
     myMusic.pause();
     setMusicIndex = (setMusicIndex + 1) % songs.length;
-    myMusic.src = songs[setMusicIndex];
+    myMusic.src = songs[setMusicIndex].file;
     console.log(setMusicIndex);
 
     myMusic.load();
     myMusic.play();
     start.innerHTML = '<span class="material-symbols-outlined">pause</span>';
+
+    imgg.src = songs[setMusicIndex].image
   });
 
   Before.addEventListener('click', () => {
     console.log("previous is pressed");
     myMusic.pause();
     setMusicIndex = (setMusicIndex - 1 + songs.length) % songs.length;
-    myMusic.src = songs[setMusicIndex];
+    myMusic.src = songs[setMusicIndex].file;
     console.log(setMusicIndex);
 
     myMusic.load();
     myMusic.play();
     start.innerHTML = '<span class="material-symbols-outlined">pause</span>';
-  });
 
-  // 5. Call once when script first runs to set 0% state
+    imgg.src = songs[setMusicIndex].image
+  });
   updateSeekBg(); 
 }
 setupMusic();
+
+
+
+

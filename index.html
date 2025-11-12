@@ -70,7 +70,7 @@
             <!-- Main Viewport -->
             <div class="viewport">
                 <!-- Hero Section -->
-                <div class="discover">
+                <div class="discover" id="weekly-discover">
                     <div class="txtbtn">
                         <div class="title">
                             <p>Discover Weekly</p>
@@ -83,8 +83,8 @@
                             <span class="material-symbols-outlined">play_arrow</span> Play
                         </button>
                     </div>
-                    <div class="thumbnail">
-                        <!-- Placeholder gradient is handled in CSS -->
+                    <div class="thumbnail" id="album">
+                        <img src="assets/Albums/Agar-Tum-Saath-Ho.jpg" alt="">
                     </div>
                 </div>
 
@@ -93,6 +93,13 @@
                     <h2>Trending Songs</h2>
                     <div class="items-grid">
                         <!-- Repeat for more items -->
+                        <div class="card song-card">
+                            <div class="card-image"></div>
+                            <div class="card-info">
+                                <h4>Song Title</h4>
+                                <p>Artist Name</p>
+                            </div>
+                        </div>
                         <div class="card song-card">
                             <div class="card-image"></div>
                             <div class="card-info">
@@ -216,22 +223,30 @@
                 </section>
                 <!-- UPDATED: Moved seekbar inside content-bottom -->
                 <section class="content-bottom">
-                    <div class="seekbar">
-                        <input type="range" name="SeekBar" id="SeekBar" min="0" value="0" max="100">
-                    </div>
-                    <div class="media-control">
-                        <div class="previous size">
-                            <span class="material-symbols-outlined" id="previous">arrow_left</span>
-                        </div>
-                        <div class="play size" id="play-pause">
-                            <span class="material-symbols-outlined">play_pause</span>
-                        </div>
-                        <div class="next size" id="next">
-                            <span class="material-symbols-outlined">arrow_right</span>
-                        </div>
-                    </div>
-                    <!-- for future thumbnail and duration bar111-->
-                </section>
+    <div class="seekbar">
+        <input type="range" name="SeekBar" id="SeekBar" min="0" value="0" max="100">
+    </div>
+    <div class="media-control">
+        <!-- <div class="mini-al">
+            
+            <div class="alb" id="player-art">
+                </div>
+
+            <div class="tit" id="player-title">
+                </div>
+
+        </div> -->
+        <div class="previous size">
+            <span class="material-symbols-outlined" id="previous">arrow_left</span>
+        </div>
+        <div class="play size" id="play-pause">
+            <span class="material-symbols-outlined">play_pause</span>
+        </div>
+        <div class="next size" id="next">
+            <span class="material-symbols-outlined">arrow_right</span>
+        </div>
+    </div>
+</section>
                 
             </div>
         </div>

@@ -118,8 +118,6 @@ main {
     background: linear-gradient(to bottom, var(--bodybg1), var(--bodybg) 40%);
     overflow-y: auto;
     padding: 0px 25px;
-    /* reserve space so fixed footer doesn't cover content */
-    /* UPDATED: Added more padding-bottom to account for taller footer */
     padding-bottom: calc(var(--footer-height) + 60px); 
     display: flex;
     flex-direction: column;
@@ -257,6 +255,12 @@ main {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.thumbnail img{
+    width: 100%;
+    
 }
 
 .content-section h2 {
@@ -294,7 +298,6 @@ main {
 .card-image {
     width: 100%;
     aspect-ratio: 1 / 1;
-    /* Keeps it perfectly square */
     background-color: #333;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
@@ -302,7 +305,6 @@ main {
 
 .card-image.rounded {
     border-radius: 50%;
-    /* For artist circles */
 }
 
 .card-info h4 {
@@ -384,7 +386,6 @@ main {
     width: 100%; 
     max-width: 600px; 
     margin-top: -7px;
-    /* padding-bottom: 15px; */
     margin-bottom: 15px; 
     z-index: 1000;
 }
@@ -392,7 +393,7 @@ main {
 #SeekBar {
     width: 100%;
     height: 3px;
-    /* margin-left: -20px; */
+    
     -webkit-appearance: none;
     appearance: none;
     background: rgba(255,255,255,0.18);
@@ -412,14 +413,13 @@ input[type=range]::-webkit-slider-thumb{
     appearance: none;
     width: 18px;
     height: 18px;
-    margin-top: -6px; /* center the thumb */
-    background: transparent; /* transparent fill */
-    border: transparent; /* visible ring */
+    margin-top: -6px;
+    background: transparent;
+    border: transparent;
     border-radius: 50%;
-    /* box-shadow: 0 2px 6px rgba(0,0,0,0.4); */
+   
 }
-
-/* Firefox styles */
+    /* firefox */
 input[type=range]::-moz-range-track{
     height: 6px;
     background: rgba(255,255,255,0.18);
@@ -427,7 +427,7 @@ input[type=range]::-moz-range-track{
 }
 input[type=range]::-moz-range-progress{
     height: 6px;
-    background: #fff; /* filled part */
+    background: #fff; 
     border-radius: 6px;
 }
 input[type=range]::-moz-range-thumb{
@@ -461,7 +461,28 @@ input[type=range]::-ms-thumb{
     border-radius: 50%;
 }
 
+/* .mini-al{
+    flex: 0 0 100px;
+    height: 1000px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    overflow: hidden; */
 
+
+/* .alb{
+    /* flex: 0 0 50px; */
+    /* width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.alb img{
+    width: 100%;
+} */ */
 
 
 @media (max-width: 1024px) {
@@ -491,7 +512,7 @@ input[type=range]::-ms-thumb{
         border-radius: 0;
         margin-top: -16px;
         padding: 16px 20px;
-        padding-bottom: 120px; /* Increased padding for footer */
+        padding-bottom: 120px; 
     }
 
     .discover {
@@ -506,13 +527,13 @@ input[type=range]::-ms-thumb{
         height: 200px;
         flex: auto;
         order: -1;
-        /* Puts image above text on mobile */
+        
     }
 
-    /* --- UPDATED STYLES for .content-bottom on mobile --- */
+    
     .content-bottom{
-        /* mobile: span almost full width (account for small safe padding) */
-        width: calc(100% - 32px); /* 16px padding left/right */
+      
+        width: calc(100% - 32px);
         max-width: none;
         left: 50%;
         transform: translateX(-50%);
@@ -521,13 +542,12 @@ input[type=range]::-ms-thumb{
         padding: 8px 12px;
         box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         
-        /* Reset properties from desktop */
         margin: 0; 
     }
 
     .media-control{
         margin-left: 0;
-        width: min(420px, 100%); /* Use 100% of parent */
+        width: min(420px, 100%);
         max-width: 95%;
         justify-content: center;
     }
@@ -540,7 +560,7 @@ input[type=range]::-ms-thumb{
 
     .items-grid {
         grid-template-columns: repeat(2, 1fr);
-        /* 2 columns on mobile */
+
         gap: 16px;
     }
 
@@ -560,15 +580,15 @@ input[type=range]::-ms-thumb{
         height: 200px;
         flex: auto;
         order: -1;
-        /* Puts image above text on mobile */
+     
     }
 
-    /* smaller footer on very small screens */
+   
     .content-bottom{
-        width: calc(100% - 20px); /* 10px padding left/right */
+        width: calc(100% - 20px); 
         left: 50%;
         transform: translateX(-50%);
-        height: auto; /* Auto height */
+        height: auto;
         padding: 6px 10px;
     }
 

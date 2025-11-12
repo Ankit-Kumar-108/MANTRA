@@ -1,17 +1,151 @@
 {
   "songs": [
-    "1.mp3",
-    "2.mp3",
-    "3.mp3",
-    "4.mp3",
-    "5.mp3",
-    "6.mp3",
-    "7.mp3",
-    "8.mp3",
-    "9.mp3",
-    "10.mp3",
-    "11.mp3",
-    "12.mp3"
-    
+    {
+      "id": "s1",
+      "title": "Song Title 1",
+      "artist": "Artist Name",
+      "file": "1.mp3",
+      "image": "assets/Albums/album1.jpg"
+    },
+    {
+      "id": "s2",
+      "title": "Another Song",
+      "artist": "Another Artist",
+      "file": "2.mp3",
+      "image": "assets/Albums/album2.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "3.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "4.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "5.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "6.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "7.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "8.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "9.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "10.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "11.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "12.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "13.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Tune Three",
+      "artist": "The Musician",
+      "file": "14.mp3",
+      "image": "assets/Albums/album3.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Ae Dil Hai Muskil",
+      "artist": "The Musician",
+      "file": "Ae-Dil-Hai-MUshkil.mp3",
+      "image": "assets/Albums/Ae-Dil-Hai-MUshkil.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Agar Tum Saath Ho",
+      "artist": "Arijit Singh, Alka Yagnika",
+      "file": "Agar-tum-saath-Ho.mp3",
+      "image": "assets/Albums/Agar-Tum-Saath-Ho.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Dope Shope",
+      "artist": "Honey Singh",
+      "file": "Dope-Shope.mp3",
+      "image": "assets/Albums/Dope-Shope.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "Saiyaara-Title-Track",
+      "artist": "Faheem Abdullah",
+      "file": "Saiyaara.mp3",
+      "image": "assets/Albums/Saiyaara.jpg"
+    },
+    {
+      "id": "s3",
+      "title": "TumHoTo",
+      "artist": "Vishal Mishra",
+      "file": "Tum Ho Toh.mp3",
+      "image": "assets/Albums/tum-ho-toh.jpg"
+    }
+  ],
+  "artists": [
+    {
+      "id": "a1",
+      "name": "Artist Name",
+      "image": "assets/Albums/artist1.jpg",
+      "type": "Artist"
+    },
+    {
+      "id": "a2",
+      "name": "Another Artist",
+      "image": "assets/Albums/artist2.jpg",
+      "type": "Artist"
+    }
   ]
 }

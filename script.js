@@ -1,3 +1,44 @@
+
+// --- Pull-to-Refresh Logic ---
+(function initPullToRefresh() {
+  // This targets your main scrolling content area
+  const target = document.querySelector('.section2'); 
+  if (!target) {
+    console.log("Could not find .section2 for pull-to-refresh");
+    return; // Exit if element not found
+  }
+
+  let touchStartY = 0;
+
+  // Listen for the first touch
+  target.addEventListener('touchstart', (e) => {
+    // Only track if we are at the very top of the scrollable area
+    if (target.scrollTop === 0) {
+      touchStartY = e.touches[0].clientY;
+    } else {
+      touchStartY = 0; // Not at the top, so don't track
+    }
+  }, { passive: true }); // 'passive: true' improves scroll performance
+
+  // Listen for the finger lifting off
+  target.addEventListener('touchend', (e) => {
+    if (touchStartY === 0) return; // We weren't at the top, so do nothing
+
+    const touchEndY = e.changedTouches[0].clientY;
+    const pullDistance = touchEndY - touchStartY;
+
+    // Check if it was a significant pull downwards
+    if (pullDistance > 120) { // 120px threshold
+      console.log('Pull-to-refresh triggered!');
+      location.reload(); // Reload the page
+    }
+    
+    touchStartY = 0; // Reset
+  }, { passive: true });
+})();
+
+// above code from gemini for scroll refresh
+
 async function getSongs() {
   const getM = await fetch("./assets/songs.json")
   let text = await getM.json()

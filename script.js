@@ -196,7 +196,7 @@ shuffle.addEventListener('click', ()=>{
   isShuffle = !isShuffle
   
   if (isShuffle){
-    shuffle.innerHTML = ' <span class="material-symbols-outlined" style = "color:white;">shuffle</span>'
+    shuffle.innerHTML = ' <span class="material-symbols-outlined" style = "background-color: greenyellow;;">shuffle</span>'
   }else{
     shuffle.innerHTML = '<span class="material-symbols-outlined">shuffle</span>'
     

@@ -374,7 +374,8 @@ main {
     color: var(--text-secondary);
 }
 
-.items-grid {
+.items-grid,
+#pl-songs-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 24px;
@@ -549,9 +550,6 @@ input[type=range]::-moz-range-thumb{
     border: transparent;
     border-radius: 50%;
 }
-/* =================================== */
-/* == PLAYLIST PAGE STYLES == */
-/* =================================== */
 
 /* This is the main page container */
 #playlist-view {
@@ -569,6 +567,7 @@ input[type=range]::-moz-range-thumb{
     position: relative;
     /* Use the same consistent gradient */
     background: linear-gradient(135deg, #159f31, #004d03);
+    border-radius: 20px;
 }
 
 /* Cover art image container */
@@ -648,13 +647,6 @@ input[type=range]::-moz-range-thumb{
     font-size: 18px; /* Makes icon clearer */
 }
 
-
-/* =================================== */
-/* == DYNAMIC SONG ROW STYLES == */
-/* =================================== */
-/* This is the style your JS will use to create each song row.
-   I've included it so your list looks correct. */
-
 .song-list-row {
     display: grid;
     /* Must match the header's columns */
@@ -695,10 +687,6 @@ input[type=range]::-moz-range-thumb{
     font-size: 14px;
     justify-self: center; /* Center the duration text */
 }
-
-/* =================================== */
-/* == RESPONSIVE (MOBILE) STYLES == */
-/* =================================== */
 
 @media (max-width: 768px) {
     .playlist-header {

@@ -8,16 +8,10 @@
     --text-primary: #ffffff;
     --text-secondary: #b3b3b3;
     --sidebar-width: 265px;
-    --footer-height: 76px;
+    --footer-height: 90px; /* Increased slightly for better touch targets */
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     background-color: black;
@@ -28,115 +22,11 @@ body {
     position: relative;
 }
 
-.mainArtistpg {
-    display: flex; /* Use flexbox, not position: absolute */
-    flex-direction: column;
-    width: 100%;
-    /* No fixed height! Let content decide. */
-}
+/* GENERAL UTILS */
+a { text-decoration: none; color: inherit; }
+main { display: flex; height: 100vh; width: 100%; }
 
-.artistpg {
-    /* Use the same gradient as your 'discover' box for consistency */
-    background: linear-gradient(135deg, #159f31, #004d03);
-    
-    display: flex;
-    align-items: center; /* Vertically center items */
-    gap: 30px; /* Space between pic and name */
-    padding: 40px;
-    position: relative; /* Needed for the back button */
-    
-    border-radius: 15px;
-    /* Remove fixed height */
-    /* Remove justify-content: space-evenly */
-}
-
-/* Back Button Style */
-#artist-back-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: background 0.2s;
-}
-#artist-back-btn:hover {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-
-.ArtistProfilePic {
-    width: 200px; /* Slightly smaller is more common */
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden; /* This will clip the img to a circle */
-    flex-shrink: 0; /* Prevents pic from shrinking */
-    
-    /* Remove background-color */
-    /* Remove aspect-ratio (width and height do this) */
-}
-
-.ArtistProfilePic img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This is the key! */
-}
-
-.ArtistName {
-    /* Remove all old styles (margin, width, height, background) */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-}
-
-.ArtistName h4 {
-    font-size: 48px; /* Big artist name */
-    font-weight: 800;
-    color: white; /* Make text white */
-}
-.ArtistName p {
-    font-size: 16px;
-    color: var(--text-secondary); /* Use your existing variable */
-}
-
-
-.lowerbd {
-    /* Remove fixed height and background-color */
-    padding: 25px 0; /* Match the padding of .section2 */
-}
-
-.SongSung {
-    /* This will style the <h2> we added */
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-/* This grid will hold the songs. It already has your 
-   .items-grid styles, so we just add spacing. */
-#artist-song-grid {
-    padding-bottom: 40px;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-main {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-}
-
+/* SIDEBAR */
 .section1 {
     width: var(--sidebar-width);
     min-width: var(--sidebar-width);
@@ -148,961 +38,292 @@ main {
     gap: 24px;
 }
 
-.web {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 16px;
-    margin-bottom: 8px;
-}
+.web { display: flex; align-items: center; gap: 10px; padding: 0 16px; margin-bottom: 8px; }
+.logo { height: 40px; width: 40px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.logo img { width: 100%; height: 100%; border-radius: 50%; }
 
-.logo {
-    height: 40px;
-    width: 40px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
-
-.links,
-.options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 10px;
-}
-
+.links, .options { display: flex; flex-direction: column; gap: 10px; margin-left: 10px; }
 
 .nav-item a {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    color: var(--text-secondary);
-    font-weight: 700;
-    font-size: 14px;
-    padding: 8px 16px;
-    transition: color 0.2s;
-    border-radius: 4px;
+    display: flex; align-items: center; gap: 16px; color: var(--text-secondary);
+    font-weight: 700; font-size: 14px; padding: 8px 16px;
+    transition: color 0.2s; border-radius: 4px;
 }
+.nav-item { border-radius: 15px; transition: 0.33s ease-in-out; }
+.nav-item a:hover, .nav-item.active a { color: var(--bg); }
+.nav-item:hover { background-color: rgba(0, 255, 0, 0.201); }
+.box1 { border-bottom: 1px solid rgba(255, 255, 255, 0.500); padding-bottom: 20px; }
 
-.nav-item {
-    border-radius: 15px;
-    transition: 0.33s ease-in-out;
-}
-
-.nav-item a:hover,
-.nav-item.active a {
-    color: var(--bg);
-}
-
-.nav-item:hover {
-    background-color: rgba(0, 255, 0, 0.201);
-}
-
-.box1 {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.500);
-    padding-bottom: 20px;
-}
-
+/* MAIN CONTENT AREA */
 .section2 {
     flex: 1;
     background: linear-gradient(to bottom, var(--bodybg1), var(--bodybg) 40%);
     overflow-y: auto;
     padding: 0px 25px;
-    padding-bottom: calc(var(--footer-height) + 60px); 
+    padding-bottom: calc(var(--footer-height) + 20px); 
     display: flex;
     flex-direction: column;
 }
 
-
 .header-element {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    margin-left: -25px;
-    margin-right: -25px;
-    top: 0px;
-    margin-bottom: 10px;
-    padding: 16px 15px;
-    z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; margin-left: -25px; margin-right: -25px; top: 0px;
+    margin-bottom: 10px; padding: 16px 15px; z-index: 10;
     background-color: rgb(0, 35, 0, 0.4);
 }
 
-.left-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
+.left-header { display: flex; align-items: center; gap: 16px; }
+.on-media { display: none; cursor: pointer; }
+.on-media .material-symbols-outlined { font-size: 40px; }
+.greet { font-size: 20px; margin-top: -5px; }
 
-.on-media {
-    display: none;
-    /* Hidden by default */
-    cursor: pointer;
-}
-
-.on-media .material-symbols-outlined {
-    font-size: 40px;
-}
-
-.greet {
-    font-size: 20px;
-    margin-top: -5px;
-}
-
-.subscribe-profile {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
+.subscribe-profile { display: flex; align-items: center; gap: 32px; }
 .subscribe {
-    background-color: var(--bg);
-    color: var(--text-primary);
-    color: black;
-    padding: 12px 18px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
+    background-color: var(--bg); color: black; padding: 12px 18px;
+    border-radius: 30px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s;
 }
-
-.subscribe:hover {
-    transform: scale(1.05);
-}
-
+.subscribe:hover { transform: scale(1.05); }
 .profile {
-    width: 40px;
-    height: 40px;
-    background-color: #535353;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    width: 40px; height: 40px; background-color: #535353; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
 
-.viewport {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding-bottom: 40px;
-}
+/* VIEWS */
+.viewport { display: flex; flex-direction: column; gap: 40px; padding-bottom: 40px; }
+.secondary-view { display: flex; flex-direction: column; width: 100%; gap: 20px; padding-bottom: 40px; }
 
+/* DISCOVER HERO */
 .discover {
-    display: flex;
-    justify-content: space-between;
-    background: linear-gradient(135deg, #159f31, #004d03);
-    border-radius: 12px;
-    padding: 32px;
-    min-height: 220px;
-    gap: 24px;
+    display: flex; justify-content: space-between; background: linear-gradient(135deg, #159f31, #004d03);
+    border-radius: 12px; padding: 32px; min-height: 220px; gap: 24px;
 }
-
-.txtbtn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-}
-
-.discover .title {
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 1.1;
-}
-
-.discover .description {
-    font-size: 14px;
-    max-width: 400px;
-    line-height: 1.5;
-}
-
-.play-button {
-    background-color: var(--bg);
-    color: black;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 16px;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.play-button:hover {
-    transform: scale(1.05);
-}
-
+.txtbtn { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.discover .title { font-size: 48px; font-weight: 800; line-height: 1.1; }
+.discover .description { font-size: 14px; max-width: 400px; line-height: 1.5; }
 .thumbnail {
-    flex: 0 0 300px;
-    height: 300px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    flex: 0 0 300px; height: 300px; background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); overflow: hidden;
 }
+.thumbnail img { width: 100%; }
 
-.thumbnail img{
-    width: 100%;
-    
+/* BUTTONS */
+.play-button {
+    background-color: var(--bg); color: black; border: none; padding: 12px 24px;
+    border-radius: 30px; font-weight: 700; font-size: 16px; width: fit-content;
+    display: flex; align-items: center; gap: 8px; cursor: pointer; transition: transform 0.2s;
 }
+.play-button:hover { transform: scale(1.05); }
 
-.content-section h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    cursor: pointer;
-    transition: 0.3s;
+/* CARDS GRID */
+.items-grid, #pl-songs-container {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 24px;
 }
-
-.content-section h2:hover {
-    color: var(--text-secondary);
-}
-
-.items-grid,
-#pl-songs-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 24px;
-}
+.content-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
+.content-section h2:hover { color: var(--text-secondary); }
 
 .card {
-    padding: 16px;
-    border: #159f31;
-    border-radius: 25px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    padding: 16px; border: #159f31; border-radius: 25px; transition: background-color 0.3s ease;
+    cursor: pointer; display: flex; flex-direction: column; gap: 16px;
 }
-
-.card:hover {
-    background-color: hsla(0, 0%, 100%, 0.118);
-}
+.card:hover { background-color: hsla(0, 0%, 100%, 0.118); }
 
 .card-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background-color: rgba(0, 0, 0, 0, 0.5);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    overflow: hidden;
+    width: 100%; aspect-ratio: 1 / 1; background-color: rgba(0, 0, 0, 0, 0.5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); border-radius: 10px; overflow: hidden;
 }
+.card-image.rounded { border-radius: 50%; }
+.card-image img { width: 100%; object-fit: contain; border-radius: 10px; }
 
-.card-image.rounded {
-    border-radius: 50%;
-}
+.card-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-info p { font-size: 14px; color: var(--text-secondary); -webkit-box-orient: vertical; overflow: hidden; }
 
-.card-image img{
-    border: none;
-    outline: none;
-    width: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    
-}
-
-.card-info h4 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.card-info p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.content-bottom{
-    --h: var(--footer-height);
+/* --- PLAYER FOOTER (FIXED BOTTOM) --- */
+.content-bottom {
     position: fixed;
-    bottom: 12px;
-    overflow: hidden;
-    
-    left: var(--sidebar-width);
+    bottom: 0;
+    left: 0;
     right: 0;
-    width: auto; 
-    margin: 0 25px;
-
-    height: auto;
-    min-height: 86px;
+    width: 100%;
+    height: var(--footer-height);
     
     display: flex;
     flex-direction: column; 
     align-items: center;
     justify-content: center;
     
-    padding: 8px 16px;
-    border-radius: 12px;
-   background: linear-gradient(135deg, #159f31, #004d03);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+    padding: 0 16px;
+    margin: 0; /* Removed margin for docked look */
+    background: linear-gradient(135deg, #159f31, #004d03);
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
     z-index: 999;
-
-    
-    transition: left 0.3s ease-in-out, margin 0.3s ease-in-out; 
+    border-radius: 0; /* Flat edges */
 }
 
-
-.media-control{
-    width: min(820px, 100%); 
-    max-width: 820px;
-    height: 65px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 100px;
-    overflow: hidden;
-    margin-top: 4px;
-    /* background-color: #fff; */
-}
-
-.size span{
-    font-size: 40px;
-    color: black;
-    background-color: var(--bg);
-    border-radius: 10px;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.size span:hover{
-    background-color: greenyellow;
-    transform: scale(1.1);
-}
-
-.seekbar{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%; 
-    max-width: 600px; 
-    margin-top: -7px;
-    margin-bottom: 15px; 
-    z-index: 1000;
-}
-
-#SeekBar {
-    width: 100%;
-    height: 3px;
-    
-    -webkit-appearance: none;
-    appearance: none;
-    background: rgba(255,255,255,0.18);
-    border-radius: 6px;
-    outline: none;
-    cursor: pointer;
-}
-
-/* Webkit track/thumb */
-input[type=range]::-webkit-slider-runnable-track{
-    height: 6px;
-    background: rgba(255,255,255,0.18);
-    border-radius: 6px;
-}
-input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    margin-top: -6px;
-    background: transparent;
-    border: transparent;
-    border-radius: 50%;
-   
-}
-    /* firefox */
-input[type=range]::-moz-range-track{
-    height: 6px;
-    background: rgba(255,255,255,0.18);
-    border-radius: 6px;
-}
-input[type=range]::-moz-range-progress{
-    height: 6px;
-    background: #fff; 
-    border-radius: 6px;
-}
-input[type=range]::-moz-range-thumb{
-    width: 18px;
-    height: 18px;
-    background: transparent;
-    border: transparent;
-    border-radius: 50%;
-}
-
-/* This is the main page container */
-#playlist-view {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-/* The top gradient header */
-.playlist-header {
-    display: flex;
-    align-items: flex-end; /* Aligns text bottom with image bottom */
-    gap: 24px;
-    padding: 40px;
-    position: relative;
-    /* Use the same consistent gradient */
-    background: linear-gradient(135deg, #159f31, #004d03);
-    border-radius: 20px;
-}
-
-/* Cover art image container */
-.playlist-img {
-    width: 200px;
-    height: 200px;
-    flex-shrink: 0; /* Prevents shrinking */
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    background-color: var(--bg-light); /* Placeholder color */
-}
-.playlist-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-/* Container for all the text details */
-.playlist-details {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-grow: 1; /* Fills remaining space */
-}
-.playlist-details .pl-type {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: white;
-}
-.playlist-details #pl-title {
-    font-size: 48px;
-    font-weight: 800;
-    color: white;
-    margin: 0;
-    line-height: 1.1;
-}
-.playlist-details #pl-desc {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin: 0;
-}
-.playlist-actions {
-    margin-top: 16px;
-    /* Your existing .play-button style will apply here */
-}
-
-/* Container for the song list below the header */
-.playlist-songs {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* The header row for the song list */
-.song-list-header {
-    display: grid;
-    /* 4 columns: #, Title, Artist, Duration */
-    grid-template-columns: 24px 1fr 1fr 50px;
-    gap: 16px;
-    padding: 8px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    
-    color: var(--text-secondary);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-.song-list-header span {
-    display: flex;
-    align-items: center;
-}
-/* Center the duration icon */
-.song-list-header span:last-child {
-    justify-self: center;
-    font-size: 18px; /* Makes icon clearer */
-}
-
-.song-list-row {
-    display: grid;
-    /* Must match the header's columns */
-    grid-template-columns: 24px 1fr 1fr 50px;
-    gap: 16px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: background-color 0.2s;
-    cursor: pointer;
-}
-.song-list-row:hover {
-    background-color: hsla(0, 0%, 100%, 0.118);
-}
-.song-list-row span {
-    display: flex;
-    align-items: center;
-    /* Truncate long text */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Style for each column in the song row */
-.song-list-row .song-index {
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-.song-list-row .song-title {
-    font-weight: 700;
-    color: var(--text-primary);
-}
-.song-list-row .song-artist {
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-.song-list-row .song-duration {
-    color: var(--text-secondary);
-    font-size: 14px;
-    justify-self: center; /* Center the duration text */
-}
-
-@media (max-width: 768px) {
-    .playlist-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .playlist-details #pl-title {
-        font-size: 32px;
-    }
-    .playlist-actions {
-        display: flex;
-        justify-content: center;
-    }
-
-    /* On mobile, hide Artist and Duration */
-    .song-list-header {
-        grid-template-columns: 24px 1fr;
-    }
-    .song-list-header span:nth-child(3),
-    .song-list-header span:nth-child(4) {
-        display: none;
-    }
-
-    .song-list-row {
-        grid-template-columns: 24px 1fr;
-    }
-    .song-list-row .song-artist,
-    .song-list-row .song-duration {
-        display: none;
-    }
-}
-
-/* IE/Edge (legacy) */
-input[type=range]::-ms-track{
-    height: 6px;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-}
-input[type=range]::-ms-fill-lower{
-    background: #fff;
-    border-radius: 6px;
-}
-input[type=range]::-ms-fill-upper{
-    background: rgba(255,255,255,0.18);
-    border-radius: 6px;
-}
-input[type=range]::-ms-thumb{
-    width: 18px;
-    height: 18px;
-    background: transparent;
-    border: transparent;
-    border-radius: 50%;
-}
-
-.mini-al{
-  /* background-color: black; */
-  width: 300px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 8px;
-
-}
-.alb{
-    /* background-color: aquamarine; */
-    width: 65px;
-    height: 65px;
-    border-radius: 7px;
-    overflow: hidden;
-}
-
-.alb img{
-    width: 100%;
-} 
-
-.tit{
-    /* background-color: aqua; */
-    width: 73%;
-    height: 70%;
-    word-wrap: break-word;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-}
-/* MODAL STYLES */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; 
-    z-index: 2000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-    backdrop-filter: blur(5px); /* Nice blur effect */
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: linear-gradient(145deg, #1e1e1e, #121212);
-    margin: auto;
-    padding: 40px;
-    border: 1px solid #333;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    text-align: center;
-    position: relative;
-    animation: popupFadeIn 0.3s;
-}
-
-@keyframes popupFadeIn {
-    from {opacity: 0; transform: scale(0.9);}
-    to {opacity: 1; transform: scale(1);}
-}
-
-.close-modal {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.close-modal:hover,
-.close-modal:focus {
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header h2 {
-    margin-bottom: 10px;
-    font-size: 28px;
-    color: #fff;
-}
-
-.modal-body p {
-    color: #b3b3b3;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-/* NEW Styles for Search and Liked Pages */
-.secondary-view {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
-    padding-bottom: 40px;
-}
-
-.search-input-container {
-    display: flex;
-    align-items: center;
-    background-color: var(--text-primary); /* White background */
-    border-radius: 30px;
-    padding: 8px 16px;
-    width: min(100%, 600px); /* Max width for aesthetics */
-    margin: 20px auto 0 auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.search-icon {
-    color: var(--bg-dark); /* Dark icon */
-    font-size: 24px;
-}
-
-#search-input {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: var(--bg-dark); /* Dark text */
-    font-size: 16px;
-    padding: 0 10px;
-}
-
-#search-results-songs h2 {
-    margin-top: 30px;
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.liked-header {
-    min-height: 250px;
-    background: linear-gradient(135deg, #501d78, #180638); /* Purple/Dark Gradient for Liked */
-}
-
-.liked-header #liked-pl-img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #501d78;
-    color: white;
-}
-
-.liked-header #liked-pl-img span {
-    font-size: 100px;
-}
-
-.initial-message {
-    color: var(--text-secondary);
-    font-size: 16px;
-    margin-top: 20px;
-    padding: 0 20px;
-}
-
-@media (max-width: 768px) {
-    .search-input-container {
-        width: 100%;
-        margin-top: 0;
-    }
-    .liked-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-}
-
-
-@media (max-width: 1024px) {
-    .items-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-}
-
-@media (max-width: 891px) {
-    .section1 {
-        display: none;
-    }
-
-    .section1.active {
-        display: flex;
-        position: fixed;
-        z-index: 100;
-        height: 100%;
-    }
-
-    .on-media {
-        display: block;
-    }
-
-    .section2 {
-        margin: 0;
-        border-radius: 0;
-        margin-top: -16px;
-        padding: 16px 20px;
-        padding-bottom: 120px; 
-    }
-
-    .discover {
-        flex-direction: column;
-        padding: 24px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .thumbnail {
-        width: 300px;
-        height: 300px;
-        flex: auto;
-        order: -1;
-        
-    }
-
-    
-    .content-bottom{
-      
-        width: calc(100% - 32px);
-        max-width: none;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 12px;
-        border-radius: 10px;
-        padding: 8px 12px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-        
-        margin: 0; 
-    }
-
-    .media-control{
-        margin-left: 0;
-        width: min(720px, 100%);
-        max-width: 95%;
-        justify-content: center;
-    }
-
-    .tit{
-        font-size: 15px;
-    }
-
-    .alb{
-        width: 65px;
-        min-width: 65px;
-    }
-}
-
-@media (max-width: 510px) {
-    .greet {
-        font-size: 18px;
-    }
-
-    .items-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 16px;
-    }
-
-    .card {
-        padding: 12px;
-    }
-    .card-info h4 {
-        word-wrap: break-word;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .discover {
-        flex-direction: column;
-        padding: 24px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .thumbnail {
-        width: 300px;
-        height: 200px;
-        flex: auto;
-        order: -1;
-    }
-
-    .mainArtistpg{
-        width: 95%;
-        margin-left: 5px;
-    }
-   
-    .content-bottom{
-        width: calc(100% - 20px); 
-        left: 50%;
-        transform: translateX(-50%);
-        height: auto;
-        padding: 5px 5px;
-    }
-
-    .media-control{
-        width: min(360px, 100%);
-        gap: 8px;
-    }
-
-    .seekbar{
-        margin-bottom: 10px;
-    }
-    .alb{
-        height: 65px;
-    }
-
-    .size span{
-        font-size: 34px;
-    }
-
-    .ArtistProfilePic {
-    width: 200px; 
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden; 
-    flex-shrink: 0;
-    
-}
-
-.artistpg {
-    background: linear-gradient(135deg, #159f31, #004d03);
-    
-    display: flex;
-    align-items: center; 
-    gap: 30px;
-    padding: 40px;
-    position: relative;
-    
-    border-radius: 15px;
-    flex-direction: column;
-}
-
-.ArtistProfilePic img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This is the key! */
-}
-
-.ArtistName {
-    /* Remove all old styles (margin, width, height, background) */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.media-control {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: space-between; 
     gap: 10px;
 }
 
-.ArtistName h4 {
-    font-size: 30px;
-    font-weight: 600;
-    color: white; 
+/* Left: Album & Text */
+.mini-al { 
+    width: 300px; height: 100%; 
+    display: flex; align-items: center; justify-content: start; gap: 12px; 
 }
-.ArtistName p {
-    font-size: 16px;
-    color: var(--text-secondary); 
+.alb { 
+    width: 56px; height: 56px; 
+    border-radius: 4px; 
+    overflow: hidden; 
+    background: #000; /* Fallback color */
+    flex-shrink: 0;
+}
+.alb img { 
+    width: 100%; height: 100%; object-fit: cover; display: block; 
+} 
+.tit { 
+    width: 100%; overflow: hidden; display: flex; flex-direction: column; justify-content: center;
+}
+.tit b {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;
 }
 
+/* Controls */
+.player-controls-center { display: flex; align-items: center; gap: 15px; }
+.volume-control { display: flex; align-items: center; gap: 10px; width: 150px; justify-content: flex-end; }
+
+/* Seekbar */
+.seekbar { 
+    width: 100%; position: fixed; bottom: 77px; left: 0; height: 4px; z-index: 1000; 
+}
+#SeekBar { 
+    width: 100%; height: 4px; -webkit-appearance: none; appearance: none; 
+    background: rgba(255,255,255,0.2); border-radius: 0; outline: none; cursor: pointer; margin: 0;
+}
+#SeekBar::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0; height: 0; opacity: 0; }
+#SeekBar::-moz-range-thumb { width: 0; height: 0; opacity: 0; border: none; }
+input[type=range]::-webkit-slider-runnable-track{ height: 4px; background: rgba(255,255,255,0.2); }
+
+.size span { font-size: 36px; color: black; background-color: var(--bg); border-radius: 50%; transition: 0.3s; cursor: pointer; padding: 4px; }
+.size span:hover { transform: scale(1.1); }
+/* Transparent backgrounds for controls except Play */
+#previous span, #next span, #Shuffle span { background: transparent; color: white; } 
+
+/* PLAYLIST & ARTIST HEADER STYLES */
+#playlist-view, .mainArtistpg { display: flex; flex-direction: column; width: 100%; }
+
+.playlist-header, .artistpg {
+    display: flex; align-items: flex-end; gap: 24px; padding: 40px;
+    position: relative; background: linear-gradient(135deg, #159f31, #004d03); border-radius: 20px;
+}
+
+.back-btn {
+    position: absolute; top: 20px; left: 20px; background: rgba(0, 0, 0, 0.3);
+    border: none; border-radius: 50%; width: 40px; height: 40px;
+    color: white; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; z-index: 10;
+}
+.back-btn:hover { background: rgba(0, 0, 0, 0.5); }
+
+.playlist-img, .ArtistProfilePic {
+    width: 200px; height: 200px; flex-shrink: 0; border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); background-color: var(--bg-light); 
+}
+.ArtistProfilePic { border-radius: 50%; overflow: hidden; }
+.playlist-img img, .ArtistProfilePic img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+
+.playlist-details, .ArtistName { display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+.playlist-details .pl-type { font-size: 12px; font-weight: 700; text-transform: uppercase; color: white; }
+#pl-title, .ArtistName h4 { font-size: 48px; font-weight: 800; color: white; margin: 0; line-height: 1.1; }
+#pl-desc, .ArtistName p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+.playlist-actions { margin-top: 16px; display:flex; align-items:center;}
+.playlist-songs, .lowerbd { padding: 24px; display: flex; flex-direction: column; }
+
+/* MODALS */
+.modal {
+    display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+    width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px); align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #1e1e1e, #121212); margin: auto; padding: 40px;
+    border: 1px solid #333; width: 90%; max-width: 400px; border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; position: relative;
+    animation: popupFadeIn 0.3s;
+}
+
+@keyframes popupFadeIn { from {opacity: 0; transform: scale(0.9);} to {opacity: 1; transform: scale(1);} }
+.close-modal { color: #aaa; float: right; font-size: 28px; font-weight: bold; position: absolute; top: 10px; right: 20px; cursor: pointer; }
+.close-modal:hover { color: #fff; }
+.modal-header h2 { margin-bottom: 10px; font-size: 28px; color: #fff; }
+
+/* AUTH STYLES */
+.auth-input {
+    width: 100%; padding: 12px 16px; margin-bottom: 12px; background-color: #333;
+    border: 1px solid #444; border-radius: 4px; color: white; font-size: 16px;
+    outline: none; transition: border-color 0.2s;
+}
+.auth-input:focus { border-color: var(--primary-color); background-color: #404040; }
+.auth-divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #888; font-size: 12px; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-bottom: 1px solid #444; }
+.auth-divider::before { margin-right: 10px; }
+.auth-divider::after { margin-left: 10px; }
+
+.google-btn {
+    background-color: white !important; color: black !important; font-weight: 500;
+    border: 1px solid #ddd; transition: background-color 0.2s;
+}
+.google-btn:hover { background-color: #f1f1f1 !important; }
+
+/* SEARCH */
+.search-input-container {
+    display: flex; align-items: center; background-color: var(--text-primary); 
+    border-radius: 30px; padding: 8px 16px; width: min(100%, 600px); margin: 20px auto 0 auto;
+}
+#search-input { flex-grow: 1; border: none; outline: none; background: transparent; color: var(--bg-dark); font-size: 16px; padding: 0 10px; }
+
+/* =========================================
+   MOBILE OPTIMIZATION (< 600px)
+   ========================================= */
+
+@media (max-width: 891px) {
+    .section1 { display: none; }
+    .section1.active { display: flex; position: fixed; z-index: 100; height: 100%; }
+    .on-media { display: block; }
+    .section2 { margin: 0; padding-bottom: 120px; }
+}
+
+@media (max-width: 600px) {
+    /* 1. Layout & Player */
+    .section2 { padding: 15px; padding-bottom: 100px; }
+    .content-bottom { height: 70px; padding: 0 10px; }
+    .media-control { justify-content: space-between; }
+
+    /* 2. Album Info: Art + Text + Like */
+    .mini-al { 
+        width: auto; flex: 1; gap: 10px; margin-right: 10px;
+        /* Ensure items don't shrink too much */
+        min-width: 0; 
+    }
+    .alb { width: 48px; height: 48px; }
+    .tit { font-size: 14px; }
+    .like-btn { display: block !important; } /* Force Show Like */
+
+    /* 3. Controls: Play + Next ONLY */
+    .player-controls-center { gap: 10px; flex-shrink: 0; }
+    
+    #previous { display: none !important; }
+    /* #Shuffle { display: none !important; }  */
+    .volume-control { display: none !important; } /* Hide Volume */
+
+    /* 4. Headers */
+    .discover { padding: 20px; min-height: auto; flex-direction: column-reverse; align-items: flex-start; }
+    .thumbnail { width: 100%; height: auto; aspect-ratio: 1/1; flex: 0 0 auto; }
+    
+    .playlist-header, .artistpg { padding: 20px; flex-direction: column; align-items: center; text-align: center; }
+    .playlist-img, .ArtistProfilePic { width: 160px; height: 160px; margin-bottom: 15px; }
+    
+    /* 5. Grids */
+    .items-grid, #pl-songs-container { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .card { padding: 10px; }
 }

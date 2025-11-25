@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mantra</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=8">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
-
 <body>
-
     <main>
         <div class="section1">
             <div class="web">
@@ -27,17 +24,16 @@
                     <div class="nav-item " id="search-bar">
                         <a href="#" id="search-btn"> <span class="material-symbols-outlined">search</span>Search</a>
                     </div>
-                    <div class="nav-item " id="library-music">
-                        <a href="#"> <span class="material-symbols-outlined">library_music</span>Your Library</a>
+                    <div class="nav-item">
+                        <a href="#" id="library-btn"> <span class="material-symbols-outlined">library_music</span>Your Library</a>
                     </div>
                 </div>
             </div>
             <div class="box2">
                 <div class="options">
                     <div class="nav-item">
-                        <a href="#"><span class="material-symbols-outlined">add_box</span>Create Playlist</a>
+                        <a href="#" id="create-playlist-btn"><span class="material-symbols-outlined">add_box</span>Create Playlist</a>
                     </div>
-                    <!-- Added ID for Liked Songs Button -->
                     <div class="nav-item">
                         <a href="#" id="liked-songs-btn"><span class="material-symbols-outlined">favorite</span>Liked Songs</a>
                     </div>
@@ -56,14 +52,13 @@
                     <div class="greet" id="greet"><b>Good Evening</b></div>
                 </div>
                 <div class="subscribe-profile">
-                    <div class="subscribe"></div>
+                    <div class="subscribe">Login</div>
                     <div class="profile" id="profilePic" style="overflow: hidden;">
                         <span class="material-symbols-outlined">person</span>
                     </div>
                 </div>
             </div>
 
-            <!-- SEARCH VIEW (NEW) -->
             <div id="search-view" class="secondary-view" style="display: none;">
                 <div class="search-input-container">
                     <span class="material-symbols-outlined search-icon">search</span>
@@ -77,37 +72,41 @@
                 </div>
             </div>
 
-            <!-- LIKED SONGS VIEW (NEW) -->
-            <div id="liked-songs-view" class="secondary-view" style="display: none;">
-                 <div class="playlist-header liked-header">
-                    <button id="liked-back-btn" class="back-btn">
+            <div id="library-view" class="secondary-view" style="display: none;">
+                <h1 style="margin-bottom: 20px; font-size: 32px;">Your Library</h1>
+                <div class="items-grid" id="library-container"></div>
+            </div>
+
+            <div id="playlist-view" style="display: none;">
+                <div class="playlist-header" id="dynamic-pl-header">
+                    <button id="playlist-back-btn" class="back-btn">
                         <span class="material-symbols-outlined">arrow_back</span>
                     </button>
-                    <div class="playlist-img" id="liked-pl-img">
-                        <span class="material-symbols-outlined" style="font-size:100px;">favorite</span>
-                    </div>
+                    <div class="playlist-img" id="pl-img"></div>
                     <div class="playlist-details">
                         <span class="pl-type">Playlist</span>
-                        <h1 id="liked-pl-title">Liked Songs</h1>
-                        <p id="liked-song-count">0 songs</p>
+                        <h1 id="pl-title">Title</h1>
+                        <p id="pl-desc">Description</p>
+                        <div class="playlist-actions">
+                            <button class="play-button" id="pl-play-btn">
+                                <span class="material-symbols-outlined">play_arrow</span> Play
+                            </button>
+                            <button id="pl-delete-btn" style="display:none; background:transparent; border:1px solid #ff4444; color:#ff4444; margin-left:10px; border-radius:30px; padding:10px 20px; cursor:pointer;">
+                                Delete Playlist
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="playlist-songs">
-                    <div class="items-grid" id="liked-songs-container">
-                        <p class="initial-message" id="liked-empty-message">You haven't liked any songs yet.</p>
-                    </div>
+                    <div id="pl-songs-container"></div>
                 </div>
             </div>
             
-            <!-- ARTIST PAGE VIEW (EXISTING) -->
             <div class="mainArtistpg" style="display: none;">
-                <!-- ... (Artist Page content remains the same) ... -->
                 <div class="artistpg">
-
-                    <button id="artist-back-btn">
+                    <button id="artist-back-btn" class="back-btn">
                         <span class="material-symbols-outlined">arrow_back</span>
                     </button>
-
                     <div class="ArtistProfilePic">
                         <img src="assets/Artists/arjit.jpeg" alt="Artist" />
                     </div>
@@ -132,17 +131,14 @@
                 </div>
             </div>
 
-            <!-- MAIN VIEWPORT (EXISTING) -->
             <div class="viewport">
-                <!-- ... (Viewport content remains the same) ... -->
                 <div class="discover" id="weekly-discover">
                     <div class="txtbtn">
                         <div class="title">
                             <p>Discover Weekly</p>
                         </div>
                         <div class="description">
-                            <p>Your weekly mixtape of fresh music. Enjoy new discoveries and deep cuts chosen just for
-                                you. Updated every Monday.</p>
+                            <p>Your weekly mixtape of fresh music. Updated every Monday.</p>
                         </div>
                         <button class="play-button" id="discovery-btn">
                             <span class="material-symbols-outlined">play_arrow</span> Play
@@ -155,78 +151,40 @@
 
                 <section class="content-section Trending">
                     <h2 id="songs-section-title">Trending Songs</h2>
-                    <div class="items-grid" id="cards">
-                    </div>
+                    <div class="items-grid" id="cards"></div>
                 </section>
 
                 <section class="content-section POP-Artists">
                     <h2>Popular Artists</h2>
-                    <div class="items-grid" id="POP-artists">
-                    </div>
+                    <div class="items-grid" id="POP-artists"></div>
                 </section>
 
                 <section class="content-section radio">
                     <h2>Popular Radio</h2>
                     <div class="items-grid" id="radio-grid">
-
                         <div class="card radio-card" id="Bhakti">
-                            <div class="card-image">
-                                <img src="assets/Radio/Bhakti.jpg" alt="Bhakti Station">
-                            </div>
-                            <div class="card-info">
-                                <h4>Station Bhakti</h4>
-                                <p>By Mantra</p>
-                            </div>
+                            <div class="card-image"><img src="assets/Radio/Bhakti.jpg"></div>
+                            <div class="card-info"><h4>Station Bhakti</h4><p>By Mantra</p></div>
                         </div>
-
                         <div class="card radio-card" id="Hip-Hop">
-                            <div class="card-image">
-                                <img src="assets/Radio/Hip-Hop.jpg" alt="Hip-Hop Station">
-                            </div>
-                            <div class="card-info">
-                                <h4>Station Hip-Hop</h4>
-                                <p>By Mantra</p>
-                            </div>
+                            <div class="card-image"><img src="assets/Radio/Hip-Hop.jpg"></div>
+                            <div class="card-info"><h4>Station Hip-Hop</h4><p>By Mantra</p></div>
                         </div>
-
                         <div class="card radio-card" id="Romance">
-                            <div class="card-image">
-                                <img src="assets/Radio/Romance.jpg" alt="Romance Station">
-                            </div>
-                            <div class="card-info">
-                                <h4>Station Romance</h4>
-                                <p>By Mantra</p>
-                            </div>
+                            <div class="card-image"><img src="assets/Radio/Romance.jpg"></div>
+                            <div class="card-info"><h4>Station Romance</h4><p>By Mantra</p></div>
                         </div>
-
-                        <div class="card radio-card" id="NCS">
-                            <div class="card-image">
-                                <img src="assets/Radio/NCS.jpg" alt="NCS Station">
-                            </div>
-                            <div class="card-info">
-                                <h4>Station NCS</h4>
-                                <p>By NCS</p>
-                            </div>
+                         <div class="card radio-card" id="NCS">
+                            <div class="card-image"><img src="assets/Radio/NCS.jpg"></div>
+                            <div class="card-info"><h4>Station NCS</h4><p>By NCS</p></div>
                         </div>
-
-                        <div class="card radio-card" id="Sad">
-                            <div class="card-image">
-                                <img src="assets/Radio/Sad.jpg" alt="Sad Station">
-                            </div>
-                            <div class="card-info">
-                                <h4>Station Sad</h4>
-                                <p>By Mantra</p>
-                            </div>
+                         <div class="card radio-card" id="Sad">
+                            <div class="card-image"><img src="assets/Radio/Sad.jpg"></div>
+                            <div class="card-info"><h4>Station Sad</h4><p>By Mantra</p></div>
                         </div>
-
-                        <div class="card radio-card" id="CheerFul">
-                            <div class="card-image">
-                                <img src="assets/Radio/Cheerful.jpg" alt="Cheerful Station">
-                            </div>
-                            <div class="card-info">
-                                <h4>Station Cheerful</h4>
-                                <p>By Mantra</p>
-                            </div>
+                         <div class="card radio-card" id="CheerFul">
+                            <div class="card-image"><img src="assets/Radio/Cheerful.jpg"></div>
+                            <div class="card-info"><h4>Station Cheerful</h4><p>By Mantra</p></div>
                         </div>
                     </div>
                 </section>
@@ -238,21 +196,21 @@
                     <div class="media-control">
                         <div class="mini-al">
                             <div class="alb" id="player-art"></div>
-
                             <div class="tit" id="player-title"></div>
-
-                            <!-- UPDATED LIKE BUTTON (SVG) -->
                             <div class="like-btn" id="like-btn" style="cursor: pointer; margin-left: 15px;">
-                                <!-- Default Grey Heart -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#b3b3b3">
                                     <path d="M0 0h24v24H0V0z" fill="none"/>
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                                 </svg>
                             </div>
                         </div>
-                        <div style="display: flex;gap: 10px;margin-right: 10px;">
-                            <div class="previous size">
-                                <span class="material-symbols-outlined" id="previous">arrow_left</span>
+
+                        <div class="player-controls-center">
+                            <div class="shuffle size" id="Shuffle">
+                                <span class="material-symbols-outlined">shuffle</span>
+                            </div>
+                            <div class="previous size" id="previous">
+                                <span class="material-symbols-outlined">arrow_left</span>
                             </div>
                             <div class="play size" id="play-pause">
                                 <span class="material-symbols-outlined">play_pause</span>
@@ -260,60 +218,70 @@
                             <div class="next size" id="next">
                                 <span class="material-symbols-outlined">arrow_right</span>
                             </div>
+                        </div>
 
-                            <div class="shuffle size" id="Shuffle">
-                                <span class="material-symbols-outlined">shuffle</span>
-                            </div>
+                        <div class="volume-control">
+                            <span class="material-symbols-outlined" id="vol-icon" style="font-size: 24px; cursor: pointer;">volume_up</span>
+                            <input type="range" id="vol-seek" min="0" max="100" value="100">
                         </div>
                     </div>
                 </section>
 
             </div>
-            <!-- PLAYLIST VIEW (EXISTING) -->
-            <div id="playlist-view" style="display: none;">
-                 <!-- ... (Playlist View content remains the same) ... -->
-                <div class="playlist-header">
-
-                    <button id="playlist-back-btn"
-                        style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.3); border: none; border-radius: 50%; width: 40px; height: 40px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;">
-                        <span class="material-symbols-outlined">arrow_back</span>
-                    </button>
-
-                    <div class="playlist-img" id="pl-img">
-                    </div>
-                    <div class="playlist-details">
-                        <span class="pl-type">Playlist</span>
-                        <h1 id="pl-title">Station Title</h1>
-                        <p id="pl-desc">Description or Artist</p>
-                        <div class="playlist-actions">
-                            <button class="play-button" id="pl-play-btn">
-                                <span class="material-symbols-outlined">play_arrow</span> Play
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="playlist-songs">
-
-                    <div id="pl-songs-container">
-                    </div>
-                </div>
-
-            </div>
         </div>
     </main>
 
-    <!-- LOGIN POPUP MODAL (EXISTING) -->
     <div id="login-popup" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-header">
-                <h2>Start Listening</h2>
+            <span class="close-modal" id="close-auth-modal">&times;</span>
+            <p id="auth-error-msg" style="color: #ff4444; font-size: 14px; margin-bottom: 10px; display: none;"></p>
+
+            <div id="login-view-container">
+                <div class="modal-header"><h2>Log In</h2></div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <input type="email" id="login-email" class="auth-input" placeholder="Email Address">
+                        <input type="password" id="login-password" class="auth-input" placeholder="Password">
+                    </div>
+                    <div class="auth-actions">
+                        <button id="perform-login-btn" class="play-button" style="width:100%; justify-content:center;">Log In</button>
+                    </div>
+                    <div class="auth-divider"><span>OR</span></div>
+                    <button id="google-login-btn" class="play-button google-btn" style="width:100%; justify-content:center;">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width: 20px; margin-right: 10px;">
+                        Sign in with Google
+                    </button>
+                    <p style="margin-top: 20px; color: #b3b3b3; font-size: 14px;">
+                        Don't have an account? <span id="switch-to-signup" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Sign up for Mantra</span>
+                    </p>
+                </div>
             </div>
+
+            <div id="signup-view-container" style="display: none;">
+                <div class="modal-header"><h2>Sign Up</h2></div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <input type="email" id="signup-email" class="auth-input" placeholder="Email Address">
+                        <input type="password" id="signup-password" class="auth-input" placeholder="Create Password">
+                    </div>
+                    <div class="auth-actions">
+                        <button id="perform-signup-btn" class="play-button" style="width:100%; justify-content:center;">Sign Up</button>
+                    </div>
+                    <p style="margin-top: 20px; color: #b3b3b3; font-size: 14px;">
+                        Already have an account? <span id="switch-to-login" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Log in here</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="create-playlist-modal" class="modal">
+        <div class="modal-content" style="max-width: 350px;">
+            <span class="close-modal" id="close-cp-modal">&times;</span>
+            <div class="modal-header"><h2>Create Playlist</h2></div>
             <div class="modal-body">
-                <p>Sign in to play songs, create playlists, and save your favorites.</p>
-                <button id="popup-login-btn" class="play-button" style="width:100%; justify-content:center; margin-top:20px;">
-                    Sign In with Google
-                </button>
+                <input type="text" id="new-playlist-name" class="auth-input" placeholder="Playlist Name">
+                <button id="confirm-create-playlist" class="play-button" style="width:100%; justify-content:center; margin-top: 10px;">Create</button>
             </div>
         </div>
     </div>
@@ -330,7 +298,6 @@
                 seek.style.background = `linear-gradient(90deg, #fff ${pct}%, rgba(255,255,255,0.18) ${pct}%)`;
             }
             seek.addEventListener('input', updateSeekBg, { passive: true });
-            // ensure correct initial appearance
             if (document.readyState === 'loading') {
                 window.addEventListener('DOMContentLoaded', updateSeekBg);
             } else {
@@ -340,5 +307,4 @@
     </script>
 </body>
 <script type="module" src="script.js"></script>
-
 </html>

@@ -49,7 +49,7 @@
                             <span class="material-symbols-outlined">menu</span>
                         </div>
                     </div>
-                    <div class="greet" id="greet"><b>Good Evening</b></div>
+                    <div class="greet" id="greet"></div>
                 </div>
                 <div class="subscribe-profile">
                     <div class="subscribe">Login</div>
@@ -285,26 +285,6 @@
             </div>
         </div>
     </div>
-    
-    <script>
-        (function () {
-            const seek = document.getElementById('SeekBar');
-            if (!seek) return;
-            function updateSeekBg() {
-                const min = parseFloat(seek.min) || 0;
-                const max = parseFloat(seek.max) || 1;
-                const val = parseFloat(seek.value) || 0;
-                const pct = Math.max(0, Math.min(100, (val - min) / (max - min) * 100));
-                seek.style.background = `linear-gradient(90deg, #fff ${pct}%, rgba(255,255,255,0.18) ${pct}%)`;
-            }
-            seek.addEventListener('input', updateSeekBg, { passive: true });
-            if (document.readyState === 'loading') {
-                window.addEventListener('DOMContentLoaded', updateSeekBg);
-            } else {
-                updateSeekBg();
-            }
-        })();
-    </script>
 </body>
 <script type="module" src="script.js"></script>
 </html>

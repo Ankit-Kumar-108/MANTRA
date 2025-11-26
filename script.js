@@ -315,6 +315,12 @@ function openPlaylistView(title, songs = [], isCustom = false) {
 // 4. UI & PLAYER LOGIC
 // ==========================================================================
 
+// Helper to update Range Slider backgrounds (Seekbar & Volume)
+function updateRangeBackground(inputElement, value, max) {
+    const percentage = (value / max) * 100;
+    inputElement.style.background = `linear-gradient(90deg, #fff ${percentage}%, rgba(255,255,255,0.2) ${percentage}%)`;
+}
+
 async function updatePlayerUI(song) {
     const albumArt = document.getElementById('player-art');
     const songTitle = document.getElementById('player-title');
@@ -453,6 +459,27 @@ async function setupMusic() {
   if (createPlConfirm) createPlConfirm.addEventListener('click', window.createPlaylist);
   document.getElementById('close-cp-modal').onclick = () => document.getElementById('create-playlist-modal').style.display = 'none';
 
+  // FIX: WEEKLY DISCOVERY BUTTON
+  const discoveryBtn = document.getElementById('discovery-btn');
+  if(discoveryBtn) {
+      discoveryBtn.addEventListener('click', () => {
+          if(!canPlay()) return;
+          // Strategy: Shuffle mode and play random song
+          isShuffleMode = true;
+          document.getElementById('Shuffle').innerHTML = ' <span class="material-symbols-outlined" style="color: rgb(0, 255, 0);">shuffle</span>';
+          
+          // Random start index
+          const randIndex = Math.floor(Math.random() * ALL_SONGS.length);
+          setMusicIndex = randIndex;
+          createShuffleQueue(setMusicIndex);
+          
+          myMusic.src = ALL_SONGS[setMusicIndex].file; 
+          myMusic.load(); 
+          myMusic.play();
+          updatePlayerUI(ALL_SONGS[setMusicIndex]);
+      });
+  }
+
   // SIDEBAR HAMBURGER
   const hamburgerBtn = document.querySelector('.on-media .hamburger');
   const sidebar = document.querySelector('.section1');
@@ -550,20 +577,26 @@ async function setupMusic() {
       }, 300);
   });
 
-  // VOLUME CONTROL
+  // VOLUME CONTROL (FIXED VISUALS)
   const volSeek = document.getElementById('vol-seek');
   const volIcon = document.getElementById('vol-icon');
   if (volSeek && volIcon) {
+      // Set initial background
+      updateRangeBackground(volSeek, volSeek.value, 100);
+
       volSeek.addEventListener('input', () => {
           myMusic.volume = volSeek.value / 100;
           volIcon.innerHTML = volSeek.value == 0 ? "volume_off" : (volSeek.value < 50 ? "volume_down" : "volume_up");
+          updateRangeBackground(volSeek, volSeek.value, 100);
       });
+      
       volIcon.addEventListener('click', () => {
           if(myMusic.volume > 0) {
               myMusic.volume = 0; volSeek.value = 0; volIcon.innerHTML = "volume_off";
           } else {
               myMusic.volume = 1; volSeek.value = 100; volIcon.innerHTML = "volume_up";
           }
+          updateRangeBackground(volSeek, volSeek.value, 100);
       });
   }
 
@@ -598,8 +631,24 @@ async function setupMusic() {
     await updatePlayerUI(ALL_SONGS[setMusicIndex]);
   });
 
-  myMusic.addEventListener('timeupdate', () => { seeker.value = myMusic.currentTime; seeker.max = myMusic.duration; });
-  seeker.addEventListener('input', () => { myMusic.currentTime = seeker.value; });
+  // SEEKBAR (FIXED VISUALS)
+  myMusic.addEventListener('timeupdate', () => { 
+      // Only update if not currently being dragged (optional check, but simplest is just update)
+      const currentTime = myMusic.currentTime;
+      const duration = myMusic.duration || 1; // avoid divide by zero
+      
+      seeker.value = currentTime; 
+      seeker.max = duration; 
+      
+      // FIX: Update the visual gradient
+      updateRangeBackground(seeker, currentTime, duration);
+  });
+
+  seeker.addEventListener('input', () => { 
+      myMusic.currentTime = seeker.value; 
+      updateRangeBackground(seeker, seeker.value, seeker.max);
+  });
+  
   myMusic.addEventListener('ended', () => next.click());
 
   document.querySelectorAll('.back-btn').forEach(btn => {
@@ -616,7 +665,7 @@ async function setupMusic() {
   const shuffleBtn = document.getElementById('Shuffle');
   shuffleBtn.addEventListener('click', () => {
       isShuffleMode = !isShuffleMode;
-      shuffleBtn.innerHTML = isShuffleMode ? ' <span class="material-symbols-outlined" style="background-color: greenyellow;">shuffle</span>' : '<span class="material-symbols-outlined">shuffle</span>';
+      shuffleBtn.innerHTML = isShuffleMode ? ' <span class="material-symbols-outlined" style="color: rgb(0, 255, 0);">shuffle</span>' : '<span class="material-symbols-outlined">shuffle</span>';
       if(isShuffleMode) createShuffleQueue(setMusicIndex);
   });
 }

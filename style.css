@@ -190,10 +190,22 @@ main { display: flex; height: 100vh; width: 100%; }
 /* Controls */
 .player-controls-center { display: flex; align-items: center; gap: 15px; }
 .volume-control { display: flex; align-items: center; gap: 10px; width: 150px; justify-content: flex-end; }
+#vol-seek{
+   width: 100%; height: 4px; -webkit-appearance: none; appearance: none;
+   background: rgba(255,255,255,0.2); border-radius: 0; outline: none; cursor: pointer; margin: 0;
+}
 
+#vol-seek::-webkit-slider-thumb{
+    -webkit-appearance: none; appearance: none; width: 0; height: 0; opacity: 0;
+}
+
+#vol-seek::-moz-range-thumb{
+     width: 0; height: 0; opacity: 0; border: none;   
+}
+input[type=range]::-webkit-slider-runnable-track{ height: 4px; background: rgba(255,255,255,0.2); }
 /* Seekbar */
 .seekbar { 
-    width: 100%; position: fixed; bottom: 77px; left: 0; height: 4px; z-index: 1000; 
+    width: 100%; position: fixed; bottom: 95px; left: 0; height: 4px; z-index: 1000;
 }
 #SeekBar { 
     width: 100%; height: 4px; -webkit-appearance: none; appearance: none; 
@@ -297,6 +309,9 @@ input[type=range]::-webkit-slider-runnable-track{ height: 4px; background: rgba(
     /* 1. Layout & Player */
     .section2 { padding: 15px; padding-bottom: 100px; }
     .content-bottom { height: 70px; padding: 0 10px; }
+    .seekbar { 
+    width: 100%; position: fixed; bottom: 77px; left: 0; height: 4px; z-index: 1000; 
+}
     .media-control { justify-content: space-between; }
 
     /* 2. Album Info: Art + Text + Like */

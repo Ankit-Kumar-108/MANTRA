@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mantra</title>
-    <link rel="stylesheet" href="style.css?v=8">
+    <title>Mantra Music</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!-- Tiny transparent favicon to prevent 404s during production -->
+    <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
 </head>
 <body>
     <main>
@@ -18,10 +20,10 @@
             </div>
             <div class="box1">
                 <div class="links">
-                    <div class="nav-item ">
+                    <div class="nav-item">
                         <a href="#" id="Home-btn"> <span class="material-symbols-outlined">home</span>Home</a>
                     </div>
-                    <div class="nav-item " id="search-bar">
+                    <div class="nav-item">
                         <a href="#" id="search-btn"> <span class="material-symbols-outlined">search</span>Search</a>
                     </div>
                     <div class="nav-item">
@@ -65,7 +67,7 @@
                     <input type="text" id="search-input" placeholder="Search for songs or artists...">
                 </div>
                 <div class="search-results-container">
-                    <h2>Songs</h2>
+                    <h2 style="margin-top: 20px;">Results</h2>
                     <div class="items-grid" id="search-results-songs">
                         <p class="initial-message">Start typing to see results...</p>
                     </div>
@@ -79,21 +81,14 @@
 
             <div id="playlist-view" style="display: none;">
                 <div class="playlist-header" id="dynamic-pl-header">
-                    <button id="playlist-back-btn" class="back-btn">
-                        <span class="material-symbols-outlined">arrow_back</span>
-                    </button>
+                    <button class="back-btn"><span class="material-symbols-outlined">arrow_back</span></button>
                     <div class="playlist-img" id="pl-img"></div>
                     <div class="playlist-details">
                         <span class="pl-type">Playlist</span>
                         <h1 id="pl-title">Title</h1>
                         <p id="pl-desc">Description</p>
                         <div class="playlist-actions">
-                            <button class="play-button" id="pl-play-btn">
-                                <span class="material-symbols-outlined">play_arrow</span> Play
-                            </button>
-                            <button id="pl-delete-btn" style="display:none; background:transparent; border:1px solid #ff4444; color:#ff4444; margin-left:10px; border-radius:30px; padding:10px 20px; cursor:pointer;">
-                                Delete Playlist
-                            </button>
+                            <button id="pl-delete-btn" style="display:none; background:transparent; border:1px solid #ff4444; color:#ff4444; border-radius:30px; padding:10px 20px; cursor:pointer;">Delete Playlist</button>
                         </div>
                     </div>
                 </div>
@@ -104,48 +99,29 @@
             
             <div class="mainArtistpg" style="display: none;">
                 <div class="artistpg">
-                    <button id="artist-back-btn" class="back-btn">
-                        <span class="material-symbols-outlined">arrow_back</span>
-                    </button>
-                    <div class="ArtistProfilePic">
-                        <img src="assets/Artists/arjit.jpeg" alt="Artist" />
-                    </div>
-                    <div style="display: flex; justify-content: center;align-items: center; flex-direction: column;">
-                        <div class="ArtistName">
-                            <h4>Artist Name</h4>
-                            <p>150,000,000 Monthly Listeners</p>
-                        </div>
-                        <div class="playlist-actions">
-                            <button class="play-button" id="pl-play-btn1">
-                                <span class="material-symbols-outlined">play_arrow</span> Play
-                            </button>
-                        </div>
+                    <button class="back-btn"><span class="material-symbols-outlined">arrow_back</span></button>
+                    <div class="ArtistProfilePic"></div>
+                    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                        <div class="ArtistName"><h4>Artist Name</h4></div>
                     </div>
                 </div>
                 <div class="lowerbd">
-                    <div class="SongSung">
-                        <h2>Popular</h2>
-                    </div>
-                    <div class="items-grid" id="artist-song-grid">
-                    </div>
+                    <div class="SongSung"><h2>Popular</h2></div>
+                    <div class="items-grid" id="artist-song-grid"></div>
                 </div>
             </div>
 
             <div class="viewport">
                 <div class="discover" id="weekly-discover">
                     <div class="txtbtn">
-                        <div class="title">
-                            <p>Discover Weekly</p>
-                        </div>
-                        <div class="description">
-                            <p>Your weekly mixtape of fresh music. Updated every Monday.</p>
-                        </div>
+                        <div class="title"><p>Discover Weekly</p></div>
+                        <div class="description"><p>Your weekly mixtape of fresh music. Updated every Monday.</p></div>
                         <button class="play-button" id="discovery-btn">
                             <span class="material-symbols-outlined">play_arrow</span> Play
                         </button>
                     </div>
                     <div class="thumbnail" id="album">
-                        <img src="assets/Albums/Agar-Tum-Saath-Ho.jpg" alt="">
+                        <img src="assets/Albums/Agar-Tum-Saath-Ho.jpg" onerror="this.style.display='none'">
                     </div>
                 </div>
 
@@ -163,28 +139,20 @@
                     <h2>Popular Radio</h2>
                     <div class="items-grid" id="radio-grid">
                         <div class="card radio-card" id="Bhakti">
-                            <div class="card-image"><img src="assets/Radio/Bhakti.jpg"></div>
+                            <div class="card-image"><img src="assets/Radio/Bhakti.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
                             <div class="card-info"><h4>Station Bhakti</h4><p>By Mantra</p></div>
                         </div>
                         <div class="card radio-card" id="Hip-Hop">
-                            <div class="card-image"><img src="assets/Radio/Hip-Hop.jpg"></div>
+                            <div class="card-image"><img src="assets/Radio/Hip-Hop.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
                             <div class="card-info"><h4>Station Hip-Hop</h4><p>By Mantra</p></div>
                         </div>
                         <div class="card radio-card" id="Romance">
-                            <div class="card-image"><img src="assets/Radio/Romance.jpg"></div>
+                            <div class="card-image"><img src="assets/Radio/Romance.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
                             <div class="card-info"><h4>Station Romance</h4><p>By Mantra</p></div>
                         </div>
                          <div class="card radio-card" id="NCS">
-                            <div class="card-image"><img src="assets/Radio/NCS.jpg"></div>
+                            <div class="card-image"><img src="assets/Radio/NCS.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
                             <div class="card-info"><h4>Station NCS</h4><p>By NCS</p></div>
-                        </div>
-                         <div class="card radio-card" id="Sad">
-                            <div class="card-image"><img src="assets/Radio/Sad.jpg"></div>
-                            <div class="card-info"><h4>Station Sad</h4><p>By Mantra</p></div>
-                        </div>
-                         <div class="card radio-card" id="CheerFul">
-                            <div class="card-image"><img src="assets/Radio/Cheerful.jpg"></div>
-                            <div class="card-info"><h4>Station Cheerful</h4><p>By Mantra</p></div>
                         </div>
                     </div>
                 </section>
@@ -213,7 +181,7 @@
                                 <span class="material-symbols-outlined">arrow_left</span>
                             </div>
                             <div class="play size" id="play-pause">
-                                <span class="material-symbols-outlined">play_pause</span>
+                                <span class="material-symbols-outlined">play_arrow</span>
                             </div>
                             <div class="next size" id="next">
                                 <span class="material-symbols-outlined">arrow_right</span>
@@ -226,7 +194,6 @@
                         </div>
                     </div>
                 </section>
-
             </div>
         </div>
     </main>
@@ -248,11 +215,10 @@
                     </div>
                     <div class="auth-divider"><span>OR</span></div>
                     <button id="google-login-btn" class="play-button google-btn" style="width:100%; justify-content:center;">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G" style="width: 20px; margin-right: 10px;">
                         Sign in with Google
                     </button>
                     <p style="margin-top: 20px; color: #b3b3b3; font-size: 14px;">
-                        Don't have an account? <span id="switch-to-signup" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Sign up for Mantra</span>
+                        Don't have an account? <span id="switch-to-signup" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Sign up</span>
                     </p>
                 </div>
             </div>

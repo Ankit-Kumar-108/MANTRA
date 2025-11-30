@@ -307,7 +307,7 @@ input[type=range]::-webkit-slider-runnable-track{ height: 4px; background: rgba(
 
 @media (max-width: 600px) {
     /* 1. Layout & Player */
-    .section2 { padding: 15px; padding-bottom: 100px; }
+    .section2 { padding: 15px; padding-bottom: 100px; padding-top: 0;}
     .content-bottom { height: 70px; padding: 0 10px; }
     .seekbar { 
     width: 100%; position: fixed; bottom: 77px; left: 0; height: 4px; z-index: 1000; 

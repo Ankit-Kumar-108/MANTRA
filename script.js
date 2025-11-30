@@ -108,6 +108,10 @@ function setupUI() {
     // Volume
     const volSeek = document.getElementById('vol-seek');
     if (volSeek) {
+        // 1. Initialize the color immediately on load
+        updateRangeBackground(volSeek, volSeek.value, 100);
+
+        // 2. Add the listener for when it changes
         volSeek.oninput = () => {
             myMusic.volume = volSeek.value / 100;
             updateRangeBackground(volSeek, volSeek.value, 100);
@@ -321,17 +325,26 @@ async function setupMusic() {
 
     playBtn.onclick = () => {
         if (!checkAuth()) return;
+        
         if (myMusic.paused) {
-            myMusic.play().then(() => {
-                playBtn.innerHTML = '<span class="material-symbols-outlined">pause</span>';
-            }).catch(e => {
-                console.error("Play failed:", e);
-            });
+            // We just call play. The 'play' event listener will update the icon.
+            myMusic.play().catch(e => console.error("Play failed:", e));
         } else {
+            // We just call pause. The 'pause' event listener will update the icon.
             myMusic.pause();
-            playBtn.innerHTML = '<span class="material-symbols-outlined">play_arrow</span>';
         }
     };
+
+
+    myMusic.addEventListener('play', ()=>{
+        playBtn.innerHTML = '<span class="material-symbols-outlined">pause</span>'
+    })
+    
+    myMusic.addEventListener('pause',()=>{
+        playBtn.innerHTML = '<span class="material-symbols-outlined">play_arrow</span>'
+    })
+
+
 
     nextBtn.onclick = () => playNext();
     prevBtn.onclick = () => playPrev();

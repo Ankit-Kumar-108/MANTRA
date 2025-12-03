@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mantra Music</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" rel="stylesheet" />
     <!-- Tiny transparent favicon to prevent 404s during production -->
     <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
 </head>
+
 <body>
     <main>
         <div class="section1">
@@ -27,17 +29,19 @@
                         <a href="#" id="search-btn"> <span class="material-symbols-outlined">search</span>Search</a>
                     </div>
                     <div class="nav-item">
-                        <a href="#" id="library-btn"> <span class="material-symbols-outlined">library_music</span>Your Library</a>
+                        <a href="#" id="history-btn"> <span class="material-symbols-outlined">history</span>History</a>
                     </div>
                 </div>
             </div>
             <div class="box2">
                 <div class="options">
                     <div class="nav-item">
-                        <a href="#" id="create-playlist-btn"><span class="material-symbols-outlined">add_box</span>Create Playlist</a>
+                        <a href="#" id="sleep-timer-btn"><span
+                                class="material-symbols-outlined">timer</span>Sleep Timer</a>
                     </div>
                     <div class="nav-item">
-                        <a href="#" id="liked-songs-btn"><span class="material-symbols-outlined">favorite</span>Liked Songs</a>
+                        <a href="#" id="weeklyd-songs-btn"><span class="material-symbols-outlined">favorite</span>Liked
+                            Songs</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +92,9 @@
                         <h1 id="pl-title">Title</h1>
                         <p id="pl-desc">Description</p>
                         <div class="playlist-actions">
-                            <button id="pl-delete-btn" style="display:none; background:transparent; border:1px solid #ff4444; color:#ff4444; border-radius:30px; padding:10px 20px; cursor:pointer;">Delete Playlist</button>
+                            <button id="pl-delete-btn"
+                                style="display:none; background:transparent; border:1px solid #ff4444; color:#ff4444; border-radius:30px; padding:10px 20px; cursor:pointer;">Delete
+                                Playlist</button>
                         </div>
                     </div>
                 </div>
@@ -96,17 +102,21 @@
                     <div id="pl-songs-container"></div>
                 </div>
             </div>
-            
+
             <div class="mainArtistpg" style="display: none;">
                 <div class="artistpg">
                     <button class="back-btn"><span class="material-symbols-outlined">arrow_back</span></button>
                     <div class="ArtistProfilePic"></div>
                     <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                        <div class="ArtistName"><h4>Artist Name</h4></div>
+                        <div class="ArtistName">
+                            <h4>Artist Name</h4>
+                        </div>
                     </div>
                 </div>
                 <div class="lowerbd">
-                    <div class="SongSung"><h2>Popular</h2></div>
+                    <div class="SongSung">
+                        <h2>Popular</h2>
+                    </div>
                     <div class="items-grid" id="artist-song-grid"></div>
                 </div>
             </div>
@@ -114,14 +124,19 @@
             <div class="viewport">
                 <div class="discover" id="weekly-discover">
                     <div class="txtbtn">
-                        <div class="title"><p>Discover Weekly</p></div>
-                        <div class="description"><p>Your weekly mixtape of fresh music. Updated every Monday.</p></div>
+                        <div class="title">
+                            <p>Discover Weekly</p>
+                        </div>
+                        <div class="description">
+                            <p>Your weekly mixtape of fresh music. Updated every Monday.</p>
+                        </div>
                         <button class="play-button" id="discovery-btn">
                             <span class="material-symbols-outlined">play_arrow</span> Play
                         </button>
                     </div>
                     <div class="thumbnail" id="album">
-                        <img src="assets/Albums/Sad - Arijit Singh, Alka Yagnik - Agar Tum Saath Ho.jpg" onerror="this.style.display='none'">
+                        <img src="assets/Albums/Sad - Arijit Singh, Alka Yagnik - Agar Tum Saath Ho.jpg"
+                            onerror="this.style.display='none'">
                     </div>
                 </div>
 
@@ -139,28 +154,52 @@
                     <h2>Popular Radio</h2>
                     <div class="items-grid" id="radio-grid">
                         <div class="card radio-card" id="Bhakti">
-                            <div class="card-image"><img src="assets/Radio/Bhakti.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
-                            <div class="card-info"><h4>Station Bhakti</h4><p>By Mantra</p></div>
+                            <div class="card-image"><img src="assets/Radio/Bhakti.jpg"
+                                    onerror="this.src='https://placehold.co/200?text=Radio'"></div>
+                            <div class="card-info">
+                                <h4>Station Bhakti</h4>
+                                <p>By Mantra</p>
+                            </div>
                         </div>
                         <div class="card radio-card" id="Hip-Hop">
-                            <div class="card-image"><img src="assets/Radio/Hip-Hop.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
-                            <div class="card-info"><h4>Station Hip-Hop</h4><p>By Mantra</p></div>
+                            <div class="card-image"><img src="assets/Radio/Hip-Hop.jpg"
+                                    onerror="this.src='https://placehold.co/200?text=Radio'"></div>
+                            <div class="card-info">
+                                <h4>Station Hip-Hop</h4>
+                                <p>By Mantra</p>
+                            </div>
                         </div>
                         <div class="card radio-card" id="Romance">
-                            <div class="card-image"><img src="assets/Radio/Romance.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
-                            <div class="card-info"><h4>Station Romance</h4><p>By Mantra</p></div>
+                            <div class="card-image"><img src="assets/Radio/Romance.jpg"
+                                    onerror="this.src='https://placehold.co/200?text=Radio'"></div>
+                            <div class="card-info">
+                                <h4>Station Romance</h4>
+                                <p>By Mantra</p>
+                            </div>
                         </div>
-                         <div class="card radio-card" id="NCS">
-                            <div class="card-image"><img src="assets/Radio/NCS.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
-                            <div class="card-info"><h4>Station NCS</h4><p>By NCS</p></div>
+                        <div class="card radio-card" id="NCS">
+                            <div class="card-image"><img src="assets/Radio/NCS.jpg"
+                                    onerror="this.src='https://placehold.co/200?text=Radio'"></div>
+                            <div class="card-info">
+                                <h4>Station NCS</h4>
+                                <p>By NCS</p>
+                            </div>
                         </div>
-                         <div class="card radio-card" id="Sad">
-                            <div class="card-image"><img src="assets/Radio/Sad.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
-                            <div class="card-info"><h4>Station Sad</h4><p>By Mantra</p></div>
+                        <div class="card radio-card" id="Sad">
+                            <div class="card-image"><img src="assets/Radio/Sad.jpg"
+                                    onerror="this.src='https://placehold.co/200?text=Radio'"></div>
+                            <div class="card-info">
+                                <h4>Station Sad</h4>
+                                <p>By Mantra</p>
+                            </div>
                         </div>
-                         <div class="card radio-card" id="Joyful">
-                            <div class="card-image"><img src="assets/Radio/Cheerful.jpg" onerror="this.src='https://placehold.co/200?text=Radio'"></div>
-                            <div class="card-info"><h4>Station Joy</h4><p>By Mantra</p></div>
+                        <div class="card radio-card" id="Joyful">
+                            <div class="card-image"><img src="assets/Radio/Cheerful.jpg"
+                                    onerror="this.src='https://placehold.co/200?text=Radio'"></div>
+                            <div class="card-info">
+                                <h4>Station Joy</h4>
+                                <p>By Mantra</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -174,10 +213,7 @@
                             <div class="alb" id="player-art"></div>
                             <div class="tit" id="player-title"></div>
                             <div class="like-btn" id="like-btn" style="cursor: pointer; margin-left: 15px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#b3b3b3">
-                                    <path d="M0 0h24v24H0V0z" fill="none"/>
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                                </svg>
+                               <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; color: #b3b3b3;">favorite</span>
                             </div>
                         </div>
 
@@ -197,7 +233,8 @@
                         </div>
 
                         <div class="volume-control">
-                            <span class="material-symbols-outlined" id="vol-icon" style="font-size: 24px; cursor: pointer;">volume_up</span>
+                            <span class="material-symbols-outlined" id="vol-icon"
+                                style="font-size: 24px; cursor: pointer;">volume_up</span>
                             <input type="range" id="vol-seek" min="0" max="100" value="100">
                         </div>
                     </div>
@@ -212,37 +249,48 @@
             <p id="auth-error-msg" style="color: #ff4444; font-size: 14px; margin-bottom: 10px; display: none;"></p>
 
             <div id="login-view-container">
-                <div class="modal-header"><h2>Log In</h2></div>
+                <div class="modal-header">
+                    <h2>Log In</h2>
+                </div>
                 <div class="modal-body">
                     <div class="auth-form">
                         <input type="email" id="login-email" class="auth-input" placeholder="Email Address">
                         <input type="password" id="login-password" class="auth-input" placeholder="Password">
                     </div>
                     <div class="auth-actions">
-                        <button id="perform-login-btn" class="play-button" style="width:100%; justify-content:center;">Log In</button>
+                        <button id="perform-login-btn" class="play-button"
+                            style="width:100%; justify-content:center;">Log In</button>
                     </div>
                     <div class="auth-divider"><span>OR</span></div>
-                    <button id="google-login-btn" class="play-button google-btn" style="width:100%; justify-content:center;">
+                    <button id="google-login-btn" class="play-button google-btn"
+                        style="width:100%; justify-content:center;">
                         Sign in with Google
                     </button>
                     <p style="margin-top: 20px; color: #b3b3b3; font-size: 14px;">
-                        Don't have an account? <span id="switch-to-signup" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Sign up</span>
+                        Don't have an account? <span id="switch-to-signup"
+                            style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Sign
+                            up</span>
                     </p>
                 </div>
             </div>
 
             <div id="signup-view-container" style="display: none;">
-                <div class="modal-header"><h2>Sign Up</h2></div>
+                <div class="modal-header">
+                    <h2>Sign Up</h2>
+                </div>
                 <div class="modal-body">
                     <div class="auth-form">
                         <input type="email" id="signup-email" class="auth-input" placeholder="Email Address">
                         <input type="password" id="signup-password" class="auth-input" placeholder="Create Password">
                     </div>
                     <div class="auth-actions">
-                        <button id="perform-signup-btn" class="play-button" style="width:100%; justify-content:center;">Sign Up</button>
+                        <button id="perform-signup-btn" class="play-button"
+                            style="width:100%; justify-content:center;">Sign Up</button>
                     </div>
                     <p style="margin-top: 20px; color: #b3b3b3; font-size: 14px;">
-                        Already have an account? <span id="switch-to-login" style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Log in here</span>
+                        Already have an account? <span id="switch-to-login"
+                            style="color: white; font-weight: bold; cursor: pointer; text-decoration: underline;">Log in
+                            here</span>
                     </p>
                 </div>
             </div>
@@ -252,13 +300,17 @@
     <div id="create-playlist-modal" class="modal">
         <div class="modal-content" style="max-width: 350px;">
             <span class="close-modal" id="close-cp-modal">&times;</span>
-            <div class="modal-header"><h2>Create Playlist</h2></div>
+            <div class="modal-header">
+                <h2>Create Playlist</h2>
+            </div>
             <div class="modal-body">
                 <input type="text" id="new-playlist-name" class="auth-input" placeholder="Playlist Name">
-                <button id="confirm-create-playlist" class="play-button" style="width:100%; justify-content:center; margin-top: 10px;">Create</button>
+                <button id="confirm-create-playlist" class="play-button"
+                    style="width:100%; justify-content:center; margin-top: 10px;">Create</button>
             </div>
         </div>
     </div>
 </body>
 <script type="module" src="script.js"></script>
+
 </html>

@@ -36,7 +36,7 @@ const DEFAULT_COVER = 'https://placehold.co/400x400/222/fff?text=Music';
 const DEFAULT_ARTIST = 'https://placehold.co/400x400/222/fff?text=Artist';
 
 // Global state
-const myMusic = new Audio(); 
+const myMusic = new Audio();
 myMusic.preload = 'metadata';
 
 let ALL_SONGS = [];
@@ -44,6 +44,7 @@ let setMusicIndex = 0;
 let isShuffleMode = false;
 let shuffledQueue = [];
 let shuffleIndex = 0;
+let historyQueue = []
 
 // Variables for Debouncing
 let playTimeout = null;
@@ -73,9 +74,46 @@ function setupUI() {
         if (input) input.focus();
     });
 
-    document.getElementById('library-btn')?.addEventListener('click', (e) => { e.preventDefault(); loadLibrary(); });
-    document.getElementById('liked-songs-btn')?.addEventListener('click', (e) => { e.preventDefault(); loadLikedSongs(); });
+    // 🟢 NEW: History Button Logic
+    document.getElementById('history-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Reuse the library view container
+        hideAllViews();
+        const libView = document.getElementById('library-view');
+        libView.style.display = 'flex';
+
+        // Change Title
+        libView.querySelector('h1').innerText = "Recently Played";
+
+        // Show Songs
+        const container = document.getElementById('library-container');
+        if (historyQueue.length === 0) {
+            container.innerHTML = "<p style='padding:20px; color:#b3b3b3'>No songs played yet.</p>";
+        } else {
+            displaySongs(historyQueue, container);
+        }
+    });
+
+    // Corrected Line (Matches your HTML)
+    document.getElementById('weeklyd-songs-btn')?.addEventListener('click', (e) => { e.preventDefault(); loadLikedSongs(); });
     document.querySelectorAll('.back-btn').forEach(btn => btn.addEventListener('click', () => document.getElementById('Home-btn').click()));
+
+    // 🟢 NEW: Attach Like Button Listener here (Always ready)
+    const likeBtn = document.getElementById('like-btn');
+    if (likeBtn) {
+        likeBtn.onclick = (e) => {
+            e.stopPropagation(); // Prevents clicking through to other elements
+
+            // Only run if we have songs loaded
+            if (ALL_SONGS && ALL_SONGS[setMusicIndex]) {
+                console.log("Like button clicked for:", ALL_SONGS[setMusicIndex].title); // Debug log
+                window.toggleLike(ALL_SONGS[setMusicIndex]);
+            } else {
+                console.warn("No song is currently playing to like.");
+            }
+        };
+    }
 
     // Authentication Modals
     const closeAuthModal = document.getElementById('close-auth-modal');
@@ -100,10 +138,27 @@ function setupUI() {
         } catch (e) { alert(e.message); }
     };
 
-    // Playlist Creation
-    document.getElementById('create-playlist-btn')?.addEventListener('click', (e) => { e.preventDefault(); if (checkAuth()) document.getElementById('create-playlist-modal').style.display = 'flex'; });
-    document.getElementById('close-cp-modal')?.addEventListener('click', () => document.getElementById('create-playlist-modal').style.display = 'none');
-    document.getElementById('confirm-create-playlist')?.addEventListener('click', () => window.createPlaylist());
+   // Sleep Timer Logic
+    const timerBtn = document.getElementById('sleep-timer-btn');
+    if (timerBtn) {
+        timerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Simple prompt for now (you can make a nice modal later)
+            const minutes = prompt("Enter minutes to stop music (e.g., 10, 30, 60):");
+            
+            if (minutes && !isNaN(minutes)) {
+                const ms = parseInt(minutes) * 60 * 1000;
+                alert(`Sleep timer set for ${minutes} minutes.`);
+                
+                setTimeout(() => {
+                    if (!myMusic.paused) {
+                        myMusic.pause();
+                        alert("Sleep Timer: Music stopped.");
+                    }
+                }, ms);
+            }
+        });
+    }
 
     // Volume
     const volSeek = document.getElementById('vol-seek');
@@ -117,6 +172,23 @@ function setupUI() {
             updateRangeBackground(volSeek, volSeek.value, 100);
         };
     }
+
+    // SpaceBa Logic
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' || e.key === ' ') {
+            // Prevent Text Area And Input section from interfering in song status while writing
+            const activeTag = document.activeElement.tagName.toLowerCase();
+            if (activeTag === 'input' || activeTag === 'textarea') {
+                return;
+            }
+
+            e.preventDefault()
+
+            const PlayBtn = document.getElementById('play-pause')
+            if (PlayBtn) PlayBtn.click()
+        }
+    })
 
     // Search Logic
     let searchTimeout;
@@ -138,8 +210,26 @@ function setupUI() {
     const hamburgerBtn = document.querySelector('.hamburger');
     const sidebar = document.querySelector('.section1');
     if (hamburgerBtn && sidebar) {
-        hamburgerBtn.addEventListener('click', (e) => { e.stopPropagation(); sidebar.classList.toggle('active'); });
-        document.addEventListener('click', (e) => { if (!sidebar.contains(e.target) && !hamburgerBtn.contains(e.target)) sidebar.classList.remove('active'); });
+        // 1. Toggle Menu on Hamburger Click
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+        });
+
+        // 2. Close Menu when clicking OUTSIDE
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !hamburgerBtn.contains(e.target))
+                sidebar.classList.remove('active');
+        });
+
+        // 🟢 3. NEW: Close Menu when clicking a LINK INSIDE
+        // This makes the menu slide away automatically after you choose an option
+        const navLinks = sidebar.querySelectorAll('a, .nav-item');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
     }
 }
 
@@ -230,6 +320,12 @@ async function playSongAtIndex(index) {
     const song = ALL_SONGS[setMusicIndex];
     if (!song || !song.file) { console.error('Invalid song'); return; }
 
+    // 🟢 NEW: Add to History (Avoid duplicates)
+    const histIdx = historyQueue.findIndex(s => s.id === song.id);
+    if (histIdx > -1) historyQueue.splice(histIdx, 1); // Remove if already there
+    historyQueue.unshift(song); // Add to front
+    if (historyQueue.length > 20) historyQueue.pop(); // Limit to 20 songs
+
     // 1. Update UI Immediately
     updatePlayerUI(song);
 
@@ -274,6 +370,7 @@ async function setupMusic() {
         setAudioSourceSimple(ALL_SONGS[setMusicIndex].file);
         updatePlayerUI(ALL_SONGS[setMusicIndex]);
     }
+
 
     // POPULAR RADIO / GENRE CARD LOGIC
     const normalize = str => (str || '').toString().toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -325,7 +422,7 @@ async function setupMusic() {
 
     playBtn.onclick = () => {
         if (!checkAuth()) return;
-        
+
         if (myMusic.paused) {
             // We just call play. The 'play' event listener will update the icon.
             myMusic.play().catch(e => console.error("Play failed:", e));
@@ -336,11 +433,11 @@ async function setupMusic() {
     };
 
 
-    myMusic.addEventListener('play', ()=>{
+    myMusic.addEventListener('play', () => {
         playBtn.innerHTML = '<span class="material-symbols-outlined">pause</span>'
     })
-    
-    myMusic.addEventListener('pause',()=>{
+
+    myMusic.addEventListener('pause', () => {
         playBtn.innerHTML = '<span class="material-symbols-outlined">play_arrow</span>'
     })
 
@@ -365,7 +462,7 @@ async function setupMusic() {
         playSongAtIndex(setMusicIndex);
     };
 
-    document.getElementById('like-btn').onclick = () => { if (ALL_SONGS[setMusicIndex]) toggleLike(ALL_SONGS[setMusicIndex]); };
+    // document.getElementById('like-btn').onclick = () => { if (ALL_SONGS[setMusicIndex]) window.toggleLike(ALL_SONGS[setMusicIndex]); };
 
     const seek = document.getElementById('SeekBar');
     myMusic.ontimeupdate = () => { seek.value = myMusic.currentTime; seek.max = myMusic.duration || 100; updateRangeBackground(seek, seek.value, seek.max); };
@@ -379,6 +476,15 @@ async function setupMusic() {
 
     renderArtists(artists);
     displaySongs([...songs].sort(() => 0.5 - Math.random()).slice(0, 6), document.getElementById('cards'));
+
+    // Weekly Section Img
+
+    const Weeklyimg = document.getElementById('album')
+    Weeklyimg.innerHTML = ""
+    const imgcontainer = document.createElement('img')
+    const randomSong = ALL_SONGS[Math.floor(Math.random() * ALL_SONGS.length)]
+    imgcontainer.src = randomSong.image
+    Weeklyimg.appendChild(imgcontainer)
 }
 
 // ==========================================================================
@@ -465,13 +571,24 @@ async function updatePlayerUI(song) {
     title.innerHTML = `<b>${song.title}</b><span style="font-size:12px;color:#b3b3b3;display:block;">${song.artist}</span>`;
 
     if (likeBtn) {
-        const svg = likeBtn.querySelector('svg');
-        if (svg) svg.setAttribute('fill', '#b3b3b3');
+        const span = likeBtn.querySelector('span');
+
+        // 1. Reset to default (Empty Heart)
+        if (span) {
+            span.style.color = '#b3b3b3';
+            span.style.fontVariationSettings = "'FILL' 0"; // Note: removed invalid comma
+        }
+
         const user = auth.currentUser;
         if (user) {
             try {
                 const snap = await getDoc(doc(db, "users", user.uid, "likedSongs", song.id));
-                if (snap.exists() && svg) svg.setAttribute('fill', '#ff0000');
+
+                // 2. If song is liked (Fill Heart Red)
+                if (snap.exists() && span) {
+                    span.style.color = "red";
+                    span.style.fontVariationSettings = "'FILL' 1"; // Note: removed invalid comma
+                }
             } catch (err) { }
         }
     }
@@ -487,17 +604,45 @@ function updateRangeBackground(el, val, max) {
 // ==========================================================================
 window.toggleLike = async function (song) {
     const user = auth.currentUser;
-    if (!user) return checkAuth();
+    if (!user) return checkAuth(); // Opens login if not logged in
+
     if (!song.id) { alert("Invalid Song ID"); return; }
+
     const ref = doc(db, "users", user.uid, "likedSongs", song.id);
-    const svg = document.getElementById('like-btn')?.querySelector('svg');
+    const likeBtn = document.getElementById('like-btn');
+    const span = likeBtn ? likeBtn.querySelector('span') : null;
+
     try {
         const snap = await getDoc(ref);
-        if (snap.exists()) { await deleteDoc(ref); if (svg) svg.setAttribute('fill', '#b3b3b3'); }
-        else { await setDoc(ref, { id: song.id, title: song.title, image: song.image, file: song.file, artist: song.artist, genre: song.genre, addedAt: new Date() }); if (svg) svg.setAttribute('fill', '#ff0000'); }
-    } catch (e) { console.error("Like Error", e); }
-}
 
+        if (snap.exists()) {
+            // UNLIKE
+            await deleteDoc(ref);
+            if (span) {
+                span.style.color = '#b3b3b3';
+                span.style.fontVariationSettings = "'FILL' 0";
+            }
+        } else {
+            // LIKE
+            await setDoc(ref, {
+                id: song.id,
+                title: song.title,
+                image: song.image,
+                file: song.file,
+                artist: song.artist,
+                genre: song.genre,
+                addedAt: new Date()
+            });
+            if (span) {
+                span.style.color = '#ff0000';
+                span.style.fontVariationSettings = "'FILL' 1";
+            }
+        }
+    } catch (e) {
+        console.error("Like Error", e);
+        alert("Error updating like: " + e.message); // 🔴 This will tell us if DB fails
+    }
+}
 window.createPlaylist = async function () {
     const user = auth.currentUser;
     const input = document.getElementById('new-playlist-name');
@@ -532,13 +677,23 @@ async function loadLikedSongs() {
     ['#search-view', '#library-view', '.mainArtistpg', '.viewport'].forEach(id => { const el = document.querySelector(id); if (el) el.style.display = 'none'; });
     document.getElementById('playlist-view').style.display = 'flex';
     document.getElementById('pl-title').innerText = "Liked Songs";
-    document.getElementById('pl-img').innerHTML = '<span class="material-symbols-outlined" style="font-size:80px; color:#fff">favorite</span>';
+    document.getElementById('pl-img').innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; color: #ff0000ff; font-size: 50px ">favorite</span>`;
     const container = document.getElementById('pl-songs-container');
     container.innerHTML = "Loading...";
     try {
         const snap = await getDocs(collection(db, "users", auth.currentUser.uid, "likedSongs"));
         const songs = [];
-        snap.forEach(d => { const data = d.data(); if (!data.id) data.id = d.id; songs.push(data); });
+        snap.forEach(d => {
+            const data = d.data();
+            if (!data.id) data.id = d.id;
+            const freshSong = ALL_SONGS.find(s => s.id === data.id);
+            if (freshSong) {
+                // Use the fresh image and file links from the live API fetch
+                data.image = freshSong.image;
+                data.file = freshSong.file;
+            }
+            songs.push(data);
+        });
         displaySongs(songs, container);
     } catch (e) { console.error(e); }
 }
